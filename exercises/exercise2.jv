@@ -11,7 +11,7 @@ pipeline TreePlantingPipeline {
 
 
     block TreeColumnDeleter oftype ColumnDeleter {
-        delete: [column C];
+        delete: [column E];
     }
 
     constraint StadtteilAllowedList oftype RegexConstraint {
