@@ -7,7 +7,7 @@
 1. Does a temperature increase correlate with energy consumption of the European Union?
 
 ## Description
-Climate change and energy consumption are two critical issues in today's world. This project aims to analyze the correlation between the increase in temperature and energy consumption within the European Union. By using historical climate change indicators and energy consumption data, I will apply statistical analysis (such as Pearson Correlation, etc.) methods to identify any significant relationships. The results of this project could provide valuable insights into how climate change impacts energy usage patterns, which could inform policy decisions and energy management strategies.
+Climate change and energy consumption are two critical issues in today's world. This project aims to analyze the correlation between the increase in temperature and energy consumption within the European Union. By using historical climate change indicators and energy consumption data, I will apply statistical analysis (such as Pearson Correlation, etc.) methods to identify any significant relationships. 
 
 ## Datasources
 
