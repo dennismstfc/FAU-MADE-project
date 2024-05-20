@@ -2,3 +2,7 @@
 /data/*
 !/data/.gitkeep
 env/
+sandbox.ipynb
+*.sqlite
+__pycache__
+*.csv
