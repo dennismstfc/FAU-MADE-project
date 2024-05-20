@@ -131,13 +131,3 @@ class DataPreprocesser:
         final_df = final_df.merge(kaggle_data, on=["ISO_2", "Year"], how="outer")
 
         return final_df
-
-
-
-if __name__ == "__main__":
-    root_dir = os.path.join("..", "data")
-    kaggle = os.path.join(root_dir, "climate_change_indicators.csv")
-    eurostat = os.path.join(root_dir, "sdg_07_10_linear.csv")
-
-    preprocessed_data = DataPreprocesser(kaggle_fpath=kaggle, eurostat_fpath=eurostat).get_final_data()
-    print(preprocessed_data.head())
