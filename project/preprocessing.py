@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 import numpy as np
 
@@ -104,6 +103,25 @@ class DataPreprocesser:
 
         return data
 
+
+    def clean_and_interpolate_data(df: pd.DataFrame, col: str, max_missing: int = 10) -> pd.DataFrame:
+        # Count missing values for each country
+        missing_counts = df[df[col].isnull()]["ISO_2"].value_counts()
+        
+        # Identify countries to remove
+        to_remove = missing_counts[missing_counts > max_missing].index.tolist()
+        
+        # Remove countries with more than max_missing missing values
+        df_cleaned = df[~df["ISO_2"].isin(to_remove)].copy()
+        
+        # Interpolate missing values for the specified column in the remaining countries
+        df_cleaned[col] = df_cleaned.groupby("ISO_2")[col].apply(lambda group: group.interpolate())
+        
+        # Reset index to maintain DataFrame structure
+        df_cleaned = df_cleaned.reset_index(drop=True)
+        
+        return df_cleaned
+
     def get_final_data(self) -> pd.DataFrame:
         # Eurostat only covers that starting from 2000
         kaggle_data = self._preprocess_kaggle()
@@ -120,7 +138,7 @@ class DataPreprocesser:
 
         # Renaming both values accordingly
         mtoe_data = mtoe_data.rename(columns={"OBS_VALUE": "energy_million_tons_oil_equivalent"})
-        toe_hab_data = toe_hab_data.rename(columns={"OBS_VALUE": "energy_million_tons_oil_equivalent"})
+        toe_hab_data = toe_hab_data.rename(columns={"OBS_VALUE": "energy_tons_oil_equivalent_per_capita"})
 
         # Removing the unit columns, since it's implicit in the column
         mtoe_data = mtoe_data.drop("unit", axis=1)
@@ -129,5 +147,10 @@ class DataPreprocesser:
         # Merging it into on big dataframe        
         final_df = toe_hab_data.merge(mtoe_data, on=["ISO_2", "Year"], how="outer")
         final_df = final_df.merge(kaggle_data, on=["ISO_2", "Year"], how="outer")
+
+        # Performing data cleaning and interpolation for every column
+        final_df = self.clean_and_interpolate_data(final_df, "energy_million_tons_oil_equivalent")
+        final_df = self.clean_and_interpolate_data(final_df, "energy_tons_oil_equivalent_per_capita")    
+        final_df = self.clean_and_interpolate_data(final_df, "change_degree_celcius")
 
         return final_df
