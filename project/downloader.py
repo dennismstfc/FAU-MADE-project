@@ -7,16 +7,15 @@ class DataRetriever:
     def __init__(self) -> None:
         self.ROOT_DIR = os.path.join("..", "data")
 
-    # Downloads a Kaggle dataset given its name. Make sure that API key is provided.
     def download_kaggle_dataset(self, dataset_name: str) -> None:
-        # Init API 
+        # Initiailze API. Make sure that API key is provided.
         api = KaggleApi()
         api.authenticate()
         
         # Download data
         api.dataset_download_files(dataset_name, path=self.ROOT_DIR, unzip=True)
 
-    # Downloads data from the Eurostat API.  
+    
     def download_eurostat_data(self, url: str, dataset_name: str ='eurostat_data.csv') -> None:
         fpath = os.path.join(self.ROOT_DIR, dataset_name)        
 
