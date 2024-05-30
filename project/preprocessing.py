@@ -113,6 +113,12 @@ class DataPreprocesser:
         # Interpolate missing values for the specified column in the remaining countries
         df_cleaned[col] = df_cleaned.groupby("ISO2")[col].transform(lambda group: group.interpolate())
         
+        # Removing column when interpolation is not possible due to missing values at the beginning
+        missing_values = df_cleaned[df_cleaned[col].isnull()]["ISO2"].value_counts().index.tolist()
+        df_cleaned = df_cleaned[~df_cleaned["ISO2"].isin(missing_values)]
+
+        print("Countries removed due to missing values at beginning (intperolation fails): ", missing_values)
+
         return df_cleaned.reset_index(drop=True)
 
 
@@ -124,9 +130,6 @@ class DataPreprocesser:
         kaggle_data = self._preprocess_kaggle()
 
         kaggle_data = kaggle_data[kaggle_data["TIME_PERIOD"] >= eurostat_data["TIME_PERIOD"].min()]
-
-        print("Missing values in percentage for Kaggle data: ", kaggle_data.isna().sum() / kaggle_data.size)
-        print("Missing values in percentage for Eurostat data: ", eurostat_data.isna().sum() / eurostat_data.size)
 
         # Depending which dataset covers more countries, we will use the subset of the other dataset
         kaggle_countries = kaggle_data["ISO2"].unique()
@@ -144,12 +147,18 @@ class DataPreprocesser:
         final_df = pd.merge(kaggle_data, eurostat_data, on=["ISO2", "TIME_PERIOD"], how="inner")
 
         print("Missing values in the final dataset before interpolation in percentage: ", final_df.isna().sum() / final_df.size)
+        print("Final data description before interpolation: ", final_df.describe())
+
+        print("\n -----------------------------------")
+        print("Performing interpolation for the final dataset.")
+        print("-----------------------------------\n")
 
         final_df = self.clean_and_interpolate_data(df=final_df, col="MTOE")
         final_df = self.clean_and_interpolate_data(df=final_df, col="TOE_HAB")    
         final_df = self.clean_and_interpolate_data(df=final_df, col="CHANGE_INDICATOR")
 
         print("Missing values in the final dataset after interpolation in percentage: ", final_df.isna().sum() / final_df.size)
+        print("Final data description after interpolation: ", final_df.describe())
 
         print("Final dataset shape: ", final_df.shape)
         print("Final dataset columns: ", final_df.columns)
