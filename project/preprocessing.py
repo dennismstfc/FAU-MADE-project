@@ -160,8 +160,11 @@ class DataPreprocesser:
         print("Missing values in the final dataset after interpolation in percentage: ", final_df.isna().sum() / final_df.size)
         print("Final data description after interpolation: ", final_df.describe())
 
+        final_df["COUNTRY"] = final_df["ISO2"].apply(lambda x: self.iso2_to_country[x])
+
         print("Final dataset shape: ", final_df.shape)
         print("Final dataset columns: ", final_df.columns)
         print("Final dataset countries: ", final_df["ISO2"].unique())
+        print("Final amount of countries: ", len(final_df["ISO2"].unique()))
 
         return final_df
