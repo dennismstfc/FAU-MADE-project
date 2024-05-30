@@ -7,150 +7,152 @@ class DataPreprocesser:
         self.kaggle_fpath = kaggle_fpath
         self.eurostat_fpath = eurostat_fpath
 
-        self.european_countries = ["Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria",
-                      "Croatia", "Cyprus", "Czech Rep.", "Denmark", "Estonia", "Finland", "France", "Germany",
-                      "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein",
-                      "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands",
-                      "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russian Federation", "San Marino",
-                      "Serbia", "Slovak Rep.", "Slovenia", "Spain", "Sweden", "Switzerland", "Turkey", "Ukraine",
-                      "United Kingdom", "Vatican City"]
-        
-        # Not included in the kaggle data
-        self.european_countries.remove("Vatican City")
-        self.european_countries.remove("Turkey")
-        self.european_countries.remove("Kosovo")
+        self.code_mapping = {
+            'AL': 'AL', 'AT': 'AT', 'BA': 'BA', 'BE': 'BE', 'BG': 'BG', 'CY': 'CY', 'CZ': 'CZ',
+            'DE': 'DE', 'DK': 'DK', 'EE': 'EE', 'EL': 'GR', 'ES': 'ES', 'FI': 'FI', 'FR': 'FR',
+            'HR': 'HR', 'HU': 'HU', 'IE': 'IE', 'IS': 'IS', 'IT': 'IT', 'LT': 'LT', 'LU': 'LU',
+            'LV': 'LV', 'ME': 'ME', 'MK': 'MK', 'MT': 'MT', 'NL': 'NL', 'NO': 'NO', 'PL': 'PL',
+            'PT': 'PT', 'RO': 'RO', 'RS': 'RS', 'SE': 'SE', 'SI': 'SI', 'SK': 'SK', 'TR': 'TR',
+            'UK': 'GB', 'XK': 'XK', 'EU27_2020': 'EU'
+        }
+
+        self.european_countries_iso2 = list(self.code_mapping.values())
     
 
+    def convert_to_iso2(self, code: str) -> str:
+        if code in self.code_mapping:
+            return self.code_mapping[code]
+        else:
+            raise Exception(f"Unknown code: {code}")
 
-    # Function for Kaggle data preprocessing
-    def __extract_values(self, df: pd.DataFrame, country: str) -> list:
-        row = df[df["Country"] == country]
-        vals = row.drop(["Country", "ISO2", "ISO3"], axis=1).values.flatten()
+    
+    def _preprocess_eurostat(self) -> pd.DataFrame:
+        data = pd.read_csv(self.eurostat_fpath)
         
-        # If there are no values, then fill the numpy array with nan values.
-        # With problem will be solved afterwards.
-        if not list(vals):
-            vals = np.empty(62)
-            vals[:] = np.nan
+        '''
+        Creating for MTOE and TOE_HAB units two distinct dataframes. 
+        I found in the data exploration that some years are missing, therefore pivot_table is used.
+        This function creates a dataframe with the years as index and the countries as columns.
+        Missing values are filled with NaN, which will be interpolated afterwards.
+        '''
+        mtoe_df = data[data["unit"] == "MTOE"].pivot_table(index="TIME_PERIOD", columns="geo", values="OBS_VALUE")
+        mtoe_df.reset_index(inplace=True)
 
-        return vals
+        # Transforming the columns to row for later concatenation.
+        mtoe_df = mtoe_df.melt(id_vars="TIME_PERIOD", var_name="geo", value_name="MTOE")
+
+        # Doing the same for the TOE_HAB data
+        toe_hab_df = data[data["unit"] == "TOE_HAB"].pivot_table(index="TIME_PERIOD", columns="geo", values="OBS_VALUE")
+        toe_hab_df.reset_index(inplace=True)
+        toe_hab_df = toe_hab_df.melt(id_vars="TIME_PERIOD", var_name="geo", value_name="TOE_HAB")
+
+        # Merge both dataframes into one
+        processed_df = mtoe_df.merge(toe_hab_df, on=["TIME_PERIOD", "geo"])
+        
+        # Lastly, convert the country codes to ISO_2
+        processed_df["ISO2"] = processed_df["geo"].apply(lambda x: self.convert_to_iso2(x))    
+
+        return processed_df.drop("geo", axis=1)
 
 
     def _preprocess_kaggle(self) -> pd.DataFrame:
         # Loading the complete data from the world
         data = pd.read_csv(self.kaggle_fpath)
 
-        # Selecting the European subset
-        eu_names_without_comma = data["Country"].apply(lambda x: x.split(",")[0])
-        eu_data = data[eu_names_without_comma.isin(self.european_countries)]
-        
-        # Dropping unimportant columns
-        eu_data = eu_data.drop([
-            "Unit", 
-            "CTS_Full_Descriptor", 
-            "Indicator", 
-            "Source", 
-            "CTS_Code",
-            "CTS_Name",
-            "ObjectId"
-            ], axis=1)
-        
-        # Next step: changing representation of the dataframe for later concatenationl => flipping x- and y-axis
-        climate_change_vals = { # Retrieving values from the rows
-            act_country: self.__extract_values(eu_data, act_country) 
-            for act_country in self.european_countries}
-        
-        # Build new dataframe, that contains the values in columns
-        climate_change_df = pd.DataFrame()
-        for country, values in climate_change_vals.items():
-            temp_df = pd.DataFrame()
-            temp_df["Country"] = [country] * len(values)
-            temp_df["Year"] = list(range(1961, 1961 + len(values)))
-            temp_df["change_degree_celcius"] = values
-            climate_change_df = pd.concat([climate_change_df, temp_df])
-
-        climate_change_df.reset_index(drop=True, inplace=True)
-
-        # Lastly, add column with ISO_2 abbrevations for later concatentation
-        iso_2_abs = eu_data["ISO2"].unique()
-        subset_country_names = eu_data["Country"].unique()
-        country_name_to_iso_2 = {
-            country_name.split(",")[0]: iso_2_abs[idx] 
-            for idx, country_name in enumerate(subset_country_names)
+        # Creating a dictionary that maps the ISO2 abbrevation to the country name. Will be used for later for enriching the data.
+        self.iso2_to_country = {
+            data["ISO2"].to_list()[idx]: data["Country"].to_list()[idx] for idx in range(len(data))
             }
-        
-        climate_change_df["ISO_2"] = climate_change_df["Country"].apply(lambda x: country_name_to_iso_2[x])
-        
-        # Replace GB with UK abbrevation
-        climate_change_df.loc[climate_change_df["ISO_2"] == "GB" , "ISO_2"] = "UK"
 
-        return climate_change_df
-
-    def _preprocess_eurostat(self) -> pd.DataFrame:
-        data = pd.read_csv(self.eurostat_fpath)
         data = data.drop([
-            "LAST UPDATE", "DATAFLOW", "freq", "OBS_FLAG"
-            ], axis=1)
-        
-        # Removing EU27_2020-data, since it's an average of the whole EU
-        data = data[data["geo"] != "EU27_2020"]
+            "ObjectId", 
+            "Country", 
+            "ISO3", 
+            "Indicator", 
+            "Unit", 
+            "Source", 
+            "CTS_Code", 
+            "CTS_Name",
+            "CTS_Full_Descriptor"], axis=1)
 
-        # Changing the abbrevation of Greece to GR
-        data["geo"] = data["geo"].replace({"EL": "GR"})
+        # Get the correct years by removing the F in the columns
+        data.columns = [el.replace("F", "") for el in data.columns]
 
-        # Renaming the geo column to ISO2 and TIME_PERIOD to Year
-        data = data.rename(columns={"geo": "ISO_2", "TIME_PERIOD": "Year"})        
+        '''
+        This preprocessing step should be done in a similar way as for the Eurostat data.
+        Therefore the data will get transposed, so that the ISO2 abbrevations are the column names
+        Afterwards, the data will get transformed similarly to the Eurostat data.
+        ISO2 gets renamed to TIME_PERIOD, since the years are saved there after the transpose.
+        '''
+        data.rename(columns={"ISO2": "TIME_PERIOD"}, inplace=True)
+        data.set_index("TIME_PERIOD", inplace=True)
+        transposed_data = data.T
+        transposed_data.reset_index(inplace=True)
 
-        return data
+        # Renaming the index column as TIME_PERIOD, since the years are saved there
+        transposed_data.rename(columns={"index": "TIME_PERIOD"}, inplace=True)
+
+        # Transforming columns to rows, similary as in _preprocess_eurostat()
+        processed_data = transposed_data.melt(id_vars="TIME_PERIOD", var_name="ISO2", value_name="CHANGE_INDICATOR")
+        processed_data["TIME_PERIOD"] = processed_data["TIME_PERIOD"].astype(int)
+
+        # Selecting only the european countries
+        return processed_data[processed_data["ISO2"].isin(self.european_countries_iso2)]
 
 
-    def clean_and_interpolate_data(df: pd.DataFrame, col: str, max_missing: int = 10) -> pd.DataFrame:
-        # Count missing values for each country
-        missing_counts = df[df[col].isnull()]["ISO_2"].value_counts()
-        
-        # Identify countries to remove
+    def clean_and_interpolate_data(self, df: pd.DataFrame, col: str, max_missing: int = 10) -> pd.DataFrame:
+        # Count missing values for each country and identify countries to remove
+        missing_counts = df[df[col].isnull()]["ISO2"].value_counts()
         to_remove = missing_counts[missing_counts > max_missing].index.tolist()
+
+        print("Removing countries with more than 10 missing values for column: ", col, to_remove)
         
         # Remove countries with more than max_missing missing values
-        df_cleaned = df[~df["ISO_2"].isin(to_remove)].copy()
+        df_cleaned = df[~df["ISO2"].isin(to_remove)].copy()
         
         # Interpolate missing values for the specified column in the remaining countries
-        df_cleaned[col] = df_cleaned.groupby("ISO_2")[col].apply(lambda group: group.interpolate())
+        df_cleaned[col] = df_cleaned.groupby("ISO2")[col].transform(lambda group: group.interpolate())
         
-        # Reset index to maintain DataFrame structure
-        df_cleaned = df_cleaned.reset_index(drop=True)
-        
-        return df_cleaned
+        return df_cleaned.reset_index(drop=True)
+
 
     def get_final_data(self) -> pd.DataFrame:
-        # Eurostat only covers that starting from 2000
-        kaggle_data = self._preprocess_kaggle()
-        kaggle_data = kaggle_data[kaggle_data["Year"] > 2000]
-
         # Ensure that both datasets uses the same countries
         eurostat_data = self._preprocess_eurostat()
-        eurostat_data = eurostat_data[eurostat_data["ISO_2"].isin(kaggle_data["ISO_2"])]
 
-        # The eurostat dataset contains two different values and one that we want to neglect 
-        # -> build two dataframes out of it
-        mtoe_data = eurostat_data[eurostat_data["unit"] == "MTOE"]
-        toe_hab_data = eurostat_data[eurostat_data["unit"] == "TOE_HAB"]
+        # Eurostat only covers that starting from 2000
+        kaggle_data = self._preprocess_kaggle()
 
-        # Renaming both values accordingly
-        mtoe_data = mtoe_data.rename(columns={"OBS_VALUE": "energy_million_tons_oil_equivalent"})
-        toe_hab_data = toe_hab_data.rename(columns={"OBS_VALUE": "energy_tons_oil_equivalent_per_capita"})
+        kaggle_data = kaggle_data[kaggle_data["TIME_PERIOD"] >= eurostat_data["TIME_PERIOD"].min()]
 
-        # Removing the unit columns, since it's implicit in the column
-        mtoe_data = mtoe_data.drop("unit", axis=1)
-        toe_hab_data = toe_hab_data.drop("unit", axis=1)
+        print("Missing values in percentage for Kaggle data: ", kaggle_data.isna().sum() / kaggle_data.size)
+        print("Missing values in percentage for Eurostat data: ", eurostat_data.isna().sum() / eurostat_data.size)
 
-        # Merging it into on big dataframe        
-        final_df = toe_hab_data.merge(mtoe_data, on=["ISO_2", "Year"], how="outer")
-        final_df = final_df.merge(kaggle_data, on=["ISO_2", "Year"], how="outer")
+        # Depending which dataset covers more countries, we will use the subset of the other dataset
+        kaggle_countries = kaggle_data["ISO2"].unique()
+        eurostat_countries = eurostat_data["ISO2"].unique()
 
-        # Performing data cleaning and interpolation for every column
-        final_df = self.clean_and_interpolate_data(final_df, "energy_million_tons_oil_equivalent")
-        final_df = self.clean_and_interpolate_data(final_df, "energy_tons_oil_equivalent_per_capita")    
-        final_df = self.clean_and_interpolate_data(final_df, "change_degree_celcius")
+        # Select the countries that are in both datasets
+        common_countries = list(set(kaggle_countries) & set(eurostat_countries)) 
+        print("Common countries: ", common_countries)
+
+        # Filter the dataframes to only include the common countries
+        kaggle_data = kaggle_data[kaggle_data["ISO2"].isin(common_countries)]
+        eurostat_data = eurostat_data[eurostat_data["ISO2"].isin(common_countries)]
+        print("Countries not included in the final dataset: ", set(kaggle_countries) ^ set(eurostat_countries))
+
+        final_df = pd.merge(kaggle_data, eurostat_data, on=["ISO2", "TIME_PERIOD"], how="inner")
+
+        print("Missing values in the final dataset before interpolation in percentage: ", final_df.isna().sum() / final_df.size)
+
+        final_df = self.clean_and_interpolate_data(df=final_df, col="MTOE")
+        final_df = self.clean_and_interpolate_data(df=final_df, col="TOE_HAB")    
+        final_df = self.clean_and_interpolate_data(df=final_df, col="CHANGE_INDICATOR")
+
+        print("Missing values in the final dataset after interpolation in percentage: ", final_df.isna().sum() / final_df.size)
+
+        print("Final dataset shape: ", final_df.shape)
+        print("Final dataset columns: ", final_df.columns)
+        print("Final dataset countries: ", final_df["ISO2"].unique())
 
         return final_df
