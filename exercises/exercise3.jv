@@ -29,12 +29,12 @@ pipeline TrainGoodsPipeline {
     // Columns in different locations -> use two cell writer to write the header
     block TrainHeaderWriter1 oftype CellWriter {
         at: range A1:E1;
-        write: ["Year", "Month", "ID", "Name", "Source"];
+        write: ["year", "month", "goods_id", "goods_name", "goods_source"];
     }
 
     block TrainHeaderWriter2 oftype CellWriter {
         at: range AT1:AU1;
-        write: ["Abroad", "Total"];
+        write: ["abroad", "total"];
     }
 
     // Create custom datatypes that are suitable
