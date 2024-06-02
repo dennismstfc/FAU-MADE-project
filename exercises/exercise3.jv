@@ -1,0 +1,97 @@
+pipeline TrainGoodsPipeline {
+    TrainHTTPExtractor 
+        -> TrainTextFileInterpreter
+        -> TrainCSVInterpreter
+        -> TrainRowDeleter
+        -> TrainHeaderWriter1
+        -> TrainHeaderWriter2
+        -> TrainTableInterpreter
+        -> TrainLoader;
+
+    block TrainHTTPExtractor oftype HttpExtractor {
+        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+    }
+
+    block TrainTextFileInterpreter oftype TextFileInterpreter {
+        encoding: "latin4";
+    }
+
+    block TrainCSVInterpreter oftype CSVInterpreter {
+        delimiter: ";";
+    }
+
+    // Delete the first 8 rows (metadata)
+    block TrainRowDeleter oftype RowDeleter {
+        delete: [row 1, row 2, row 3, row 4, row 5, row 6, row 7, row 8];
+    }
+
+    
+    // Columns in different locations -> use two cell writer to write the header
+    block TrainHeaderWriter1 oftype CellWriter {
+        at: range A1:E1;
+        write: ["Year", "Month", "ID", "Name", "Source"];
+    }
+
+    block TrainHeaderWriter2 oftype CellWriter {
+        at: range AT1:AU1;
+        write: ["Abroad", "Total"];
+    }
+
+    // Create custom datatypes that are suitable
+    constraint MonthsConstraint on text:
+        value in [
+            "Januar", 
+            "Februar", 
+            "März", 
+            "April", 
+            "Mai", 
+            "Juni", 
+            "Juli", 
+            "August", 
+            "September", 
+            "Oktober", 
+            "November", 
+            "Dezember"
+            ];
+
+    valuetype GermanMonths oftype text {
+        constraints: [MonthsConstraint];
+    }
+
+
+    constraint IDConstraint oftype RegexConstraint{
+        regex: /^["NST7\-"][0-9A-Z]{3}/;
+    }
+
+    valuetype GoodID oftype text {
+        constraints: [IDConstraint];
+    }
+
+    constraint PositiveConstraint on integer: value >= 0;
+    
+    valuetype PositiveInteger oftype integer {
+        constraints: [PositiveConstraint];
+    }
+
+
+    // Select the subset of columns
+    block TrainTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "Year" oftype PositiveInteger,
+            "Month" oftype GermanMonths,
+            "ID" oftype GoodID,
+            "Name" oftype text,
+            "Source" oftype text,
+            "Abroad" oftype PositiveInteger,
+            "Total" oftype PositiveInteger
+        ];
+    }
+
+
+    block TrainLoader oftype SQLiteLoader {
+        table: "goods";
+        file: "goodsTransportedByTrain.sqlite";
+    }
+
+}
