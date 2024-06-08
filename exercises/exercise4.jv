@@ -1,0 +1,98 @@
+pipeline TempPipeline {
+
+    TempHTTPExtractor
+        -> TempArchiveIntepreter
+        -> TempCSVFilePicker
+        -> TempTextFileInterpreter
+        -> TempCSVInterpreter
+        -> TempHeaderWriter
+        -> TempHeaderWriterBattery
+        -> TempTableInterpreter
+        -> TempCtoFTransformer
+        -> TempCtoFTransformerBattery
+        -> TempLoader;
+
+
+    block TempHTTPExtractor oftype HttpExtractor { 
+        url: "https://www.mowesta.com/data/measure/mowesta-dataset-20221107.zip"; 
+    }
+
+
+    block TempArchiveIntepreter oftype ArchiveInterpreter { 
+        archiveType: "zip"; 
+    }
+
+
+    block TempCSVFilePicker oftype FilePicker {
+        path: "/data.csv";
+    }
+
+
+    block TempTextFileInterpreter oftype TextFileInterpreter {}
+    
+
+    block TempCSVInterpreter oftype CSVInterpreter { 
+        delimiter: ";"; 
+    }
+
+
+    block TempHeaderWriter oftype CellWriter{
+        at:range A1:E1; 
+        write:["id", "producer", "model", "month", "temperature"];
+    }
+
+    // Cannot do it in a single one, unfortunately
+    block TempHeaderWriterBattery oftype CellWriter{ 
+        at:cell J1; 
+        write:["battery_temperature"];
+    }
+
+    
+    constraint IDConstraint on integer: value > 0;
+
+
+    valuetype ConstrainedID oftype integer {
+        constraints: [IDConstraint];
+    }
+
+        
+    block TempTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+        "id" oftype ConstrainedID,
+        "producer" oftype text,
+        "model" oftype text,
+        "month" oftype integer,
+        "temperature" oftype decimal,
+        "battery_temperature" oftype decimal,
+        ];
+    }
+
+    // Abbrevation for Celsius to Fahrenheit
+    transform CtoF {
+        from Celsius oftype decimal;
+        to Fahrenheit oftype decimal;
+        Fahrenheit: (Celsius * 9/5) + 32;
+    }
+
+
+    block TempCtoFTransformer oftype TableTransformer {
+        inputColumns: ["temperature"];
+        outputColumn: "temperature";
+        use: CtoF;
+    }
+   
+
+    // Here again, cannot do it in a single one
+    block TempCtoFTransformerBattery oftype TableTransformer {
+        inputColumns: ["battery_temperature"];
+        outputColumn: "battery_temperature";
+        use: CtoF;
+    }
+
+
+    block TempLoader oftype SQLiteLoader { 
+        table: "temperatures"; 
+        file: "./temperatures.sqlite"; 
+    }
+}
