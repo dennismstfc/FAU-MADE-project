@@ -16,4 +16,4 @@ jobs:
         python-version: 3.11
 
     - name: Run unit tests
-      run: bash ./unit_test.sh
+      run: bash ./project/tests.sh
