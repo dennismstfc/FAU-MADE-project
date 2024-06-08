@@ -1,0 +1,737 @@
+TIME_PERIOD,ISO2,CHANGE_INDICATOR,MTOE,TOE_HAB,COUNTRY
+2000,AL,1.065,1.8,0.58,Albania
+2001,AL,1.532,1.8,0.59,Albania
+2002,AL,0.492,2.1,0.68,Albania
+2003,AL,0.97,2.0,0.65,Albania
+2004,AL,0.444,2.1,0.7,Albania
+2005,AL,0.189,2.1,0.71,Albania
+2006,AL,0.345,2.1,0.69,Albania
+2007,AL,1.316,1.9,0.65,Albania
+2008,AL,0.978,2.1,0.7,Albania
+2009,AL,0.91,2.0,0.69,Albania
+2010,AL,1.191,2.0,0.7,Albania
+2011,AL,1.055,2.2,0.76,Albania
+2012,AL,1.487,2.0,0.69,Albania
+2013,AL,1.333,2.2,0.76,Albania
+2014,AL,1.198,2.3,0.78,Albania
+2015,AL,1.569,2.1,0.74,Albania
+2016,AL,1.464,2.2,0.75,Albania
+2017,AL,1.121,2.3,0.81,Albania
+2018,AL,2.028,2.4,0.82,Albania
+2019,AL,1.675,2.3,0.81,Albania
+2020,AL,1.498,2.2,0.76,Albania
+2021,AL,1.536,2.3,0.8,Albania
+2022,AL,1.518,2.3,0.8,Albania
+2000,AT,1.769,27.5,3.43,Austria
+2001,AT,1.501,29.1,3.62,Austria
+2002,AT,1.531,29.3,3.62,Austria
+2003,AT,1.464,30.9,3.8,Austria
+2004,AT,0.829,31.2,3.82,Austria
+2005,AT,0.628,32.7,3.98,Austria
+2006,AT,0.907,32.6,3.95,Austria
+2007,AT,2.137,32.2,3.88,Austria
+2008,AT,1.582,32.5,3.9,Austria
+2009,AT,1.544,30.7,3.67,Austria
+2010,AT,0.656,32.9,3.93,Austria
+2011,AT,1.373,32.0,3.81,Austria
+2012,AT,1.783,31.7,3.76,Austria
+2013,AT,1.098,32.1,3.78,Austria
+2014,AT,2.409,30.8,3.6,Austria
+2015,AT,2.167,31.7,3.66,Austria
+2016,AT,2.096,32.0,3.67,Austria
+2017,AT,1.741,32.8,3.73,Austria
+2018,AT,2.524,31.8,3.6,Austria
+2019,AT,2.37,32.3,3.63,Austria
+2020,AT,2.315,29.9,3.35,Austria
+2021,AT,1.395,31.6,3.53,Austria
+2022,AT,2.498,30.2,3.34,Austria
+2000,BE,1.484,52.4,5.12,Belgium
+2001,BE,1.336,52.1,5.07,Belgium
+2002,BE,1.398,50.1,4.85,Belgium
+2003,BE,1.526,52.6,5.07,Belgium
+2004,BE,1.089,52.4,5.03,Belgium
+2005,BE,1.197,51.6,4.93,Belgium
+2006,BE,1.404,51.5,4.88,Belgium
+2007,BE,1.883,50.4,4.74,Belgium
+2008,BE,1.256,51.2,4.78,Belgium
+2009,BE,1.158,50.1,4.64,Belgium
+2010,BE,0.233,53.4,4.9,Belgium
+2011,BE,1.289,49.5,4.48,Belgium
+2012,BE,1.13,47.1,4.24,Belgium
+2013,BE,0.463,48.6,4.36,Belgium
+2014,BE,2.417,45.2,4.04,Belgium
+2015,BE,1.371,45.7,4.05,Belgium
+2016,BE,1.882,48.5,4.28,Belgium
+2017,BE,1.731,48.5,4.26,Belgium
+2018,BE,2.196,46.5,4.07,Belgium
+2019,BE,2.081,48.4,4.21,Belgium
+2020,BE,2.572,43.9,3.8,Belgium
+2021,BE,1.203,48.7,4.21,Belgium
+2022,BE,2.807,45.2,3.87,Belgium
+2000,BG,1.184,17.7,2.16,Bulgaria
+2001,BG,1.648,18.4,2.3,Bulgaria
+2002,BG,0.854,18.4,2.34,Bulgaria
+2003,BG,0.181,18.7,2.41,Bulgaria
+2004,BG,0.533,18.2,2.36,Bulgaria
+2005,BG,0.215,19.2,2.51,Bulgaria
+2006,BG,0.571,19.9,2.61,Bulgaria
+2007,BG,1.883,19.5,2.59,Bulgaria
+2008,BG,1.177,19.0,2.54,Bulgaria
+2009,BG,1.291,16.9,2.27,Bulgaria
+2010,BG,1.361,17.4,2.35,Bulgaria
+2011,BG,0.422,18.6,2.53,Bulgaria
+2012,BG,1.678,17.8,2.44,Bulgaria
+2013,BG,1.476,16.5,2.27,Bulgaria
+2014,BG,1.196,17.3,2.39,Bulgaria
+2015,BG,1.438,18.0,2.5,Bulgaria
+2016,BG,1.899,17.7,2.48,Bulgaria
+2017,BG,0.954,18.3,2.59,Bulgaria
+2018,BG,2.192,18.2,2.6,Bulgaria
+2019,BG,2.112,18.0,2.59,Bulgaria
+2020,BG,2.037,17.1,2.46,Bulgaria
+2021,BG,1.629,18.6,2.7,Bulgaria
+2022,BG,1.831,18.9,2.85,Bulgaria
+2000,HR,1.601,7.8,1.75,"Croatia, Rep. of"
+2001,HR,1.57,8.3,1.92,"Croatia, Rep. of"
+2002,HR,1.233,8.5,1.96,"Croatia, Rep. of"
+2003,HR,1.244,9.0,2.09,"Croatia, Rep. of"
+2004,HR,0.633,8.9,2.08,"Croatia, Rep. of"
+2005,HR,0.253,9.1,2.12,"Croatia, Rep. of"
+2006,HR,0.68,9.1,2.11,"Croatia, Rep. of"
+2007,HR,1.938,9.4,2.19,"Croatia, Rep. of"
+2008,HR,1.416,9.2,2.13,"Croatia, Rep. of"
+2009,HR,1.454,9.0,2.08,"Croatia, Rep. of"
+2010,HR,0.821,8.9,2.06,"Croatia, Rep. of"
+2011,HR,1.22,8.7,2.02,"Croatia, Rep. of"
+2012,HR,1.809,8.2,1.92,"Croatia, Rep. of"
+2013,HR,1.232,8.0,1.88,"Croatia, Rep. of"
+2014,HR,2.004,7.6,1.79,"Croatia, Rep. of"
+2015,HR,1.895,8.0,1.89,"Croatia, Rep. of"
+2016,HR,1.807,8.1,1.93,"Croatia, Rep. of"
+2017,HR,1.523,8.3,2.02,"Croatia, Rep. of"
+2018,HR,2.282,8.2,2.0,"Croatia, Rep. of"
+2019,HR,2.082,8.2,2.02,"Croatia, Rep. of"
+2020,HR,1.989,7.8,1.92,"Croatia, Rep. of"
+2021,HR,1.582,8.3,2.09,"Croatia, Rep. of"
+2022,HR,2.209,8.3,2.15,"Croatia, Rep. of"
+2000,CY,0.618,2.3,3.37,Cyprus
+2001,CY,1.161,2.4,3.36,Cyprus
+2002,CY,0.836,2.4,3.35,Cyprus
+2003,CY,0.585,2.6,3.63,Cyprus
+2004,CY,0.614,2.4,3.35,Cyprus
+2005,CY,0.335,2.5,3.36,Cyprus
+2006,CY,0.622,2.6,3.42,Cyprus
+2007,CY,0.814,2.7,3.52,Cyprus
+2008,CY,1.031,2.9,3.62,Cyprus
+2009,CY,0.983,2.8,3.43,Cyprus
+2010,CY,2.03,2.7,3.22,Cyprus
+2011,CY,0.715,2.7,3.11,Cyprus
+2012,CY,0.97,2.5,2.89,Cyprus
+2013,CY,1.238,2.2,2.53,Cyprus
+2014,CY,1.048,2.2,2.6,Cyprus
+2015,CY,1.139,2.3,2.68,Cyprus
+2016,CY,1.493,2.4,2.84,Cyprus
+2017,CY,0.776,2.5,2.94,Cyprus
+2018,CY,2.119,2.6,2.93,Cyprus
+2019,CY,1.524,2.5,2.88,Cyprus
+2020,CY,1.668,2.2,2.47,Cyprus
+2021,CY,1.994,2.3,2.57,Cyprus
+2022,CY,1.237,2.5,2.72,Cyprus
+2000,CZ,1.914,39.2,3.82,Czech Rep.
+2001,CZ,1.228,40.2,3.94,Czech Rep.
+2002,CZ,1.531,40.7,3.99,Czech Rep.
+2003,CZ,1.081,42.5,4.17,Czech Rep.
+2004,CZ,0.822,43.1,4.22,Czech Rep.
+2005,CZ,0.752,42.5,4.16,Czech Rep.
+2006,CZ,0.957,43.5,4.25,Czech Rep.
+2007,CZ,2.175,43.7,4.24,Czech Rep.
+2008,CZ,1.654,42.5,4.09,Czech Rep.
+2009,CZ,1.435,40.2,3.85,Czech Rep.
+2010,CZ,0.425,42.5,4.06,Czech Rep.
+2011,CZ,1.054,40.9,3.89,Czech Rep.
+2012,CZ,1.596,40.4,3.84,Czech Rep.
+2013,CZ,0.797,40.7,3.87,Czech Rep.
+2014,CZ,2.527,39.0,3.7,Czech Rep.
+2015,CZ,2.141,39.4,3.74,Czech Rep.
+2016,CZ,2.1,39.7,3.76,Czech Rep.
+2017,CZ,1.616,40.4,3.81,Czech Rep.
+2018,CZ,2.672,40.5,3.81,Czech Rep.
+2019,CZ,2.561,39.7,3.72,Czech Rep.
+2020,CZ,2.361,37.6,3.51,Czech Rep.
+2021,CZ,1.321,39.6,3.76,Czech Rep.
+2022,CZ,2.394,38.6,3.62,Czech Rep.
+2000,DK,1.719,19.1,3.58,Denmark
+2001,DK,1.044,19.7,3.68,Denmark
+2002,DK,1.652,19.4,3.61,Denmark
+2003,DK,0.707,20.5,3.81,Denmark
+2004,DK,1.032,20.0,3.69,Denmark
+2005,DK,1.282,19.4,3.59,Denmark
+2006,DK,1.349,20.8,3.83,Denmark
+2007,DK,2.136,20.4,3.73,Denmark
+2008,DK,1.853,19.9,3.61,Denmark
+2009,DK,1.32,19.1,3.45,Denmark
+2010,DK,-0.199,19.9,3.59,Denmark
+2011,DK,0.677,18.5,3.32,Denmark
+2012,DK,1.139,17.7,3.17,Denmark
+2013,DK,0.397,17.8,3.17,Denmark
+2014,DK,2.677,16.9,3.0,Denmark
+2015,DK,1.516,16.8,2.96,Denmark
+2016,DK,1.852,17.3,3.02,Denmark
+2017,DK,1.619,17.4,3.02,Denmark
+2018,DK,2.109,17.4,3.01,Denmark
+2019,DK,2.18,16.9,2.9,Denmark
+2020,DK,2.633,15.5,2.65,Denmark
+2021,DK,1.69,16.4,2.79,Denmark
+2022,DK,2.219,16.0,2.71,Denmark
+2000,EE,2.066,4.6,3.26,"Estonia, Rep. of"
+2001,EE,1.838,4.8,3.47,"Estonia, Rep. of"
+2002,EE,1.483,4.5,3.28,"Estonia, Rep. of"
+2003,EE,0.234,4.9,3.55,"Estonia, Rep. of"
+2004,EE,1.184,5.2,3.82,"Estonia, Rep. of"
+2005,EE,1.597,5.3,3.9,"Estonia, Rep. of"
+2006,EE,1.262,5.2,3.88,"Estonia, Rep. of"
+2007,EE,2.269,6.2,4.59,"Estonia, Rep. of"
+2008,EE,2.607,5.4,4.02,"Estonia, Rep. of"
+2009,EE,1.622,4.3,3.24,"Estonia, Rep. of"
+2010,EE,0.554,5.8,4.38,"Estonia, Rep. of"
+2011,EE,1.299,5.7,4.29,"Estonia, Rep. of"
+2012,EE,1.47,5.2,3.93,"Estonia, Rep. of"
+2013,EE,1.183,5.7,4.34,"Estonia, Rep. of"
+2014,EE,2.447,5.5,4.17,"Estonia, Rep. of"
+2015,EE,2.377,4.8,3.62,"Estonia, Rep. of"
+2016,EE,1.936,6.0,4.53,"Estonia, Rep. of"
+2017,EE,1.502,5.8,4.39,"Estonia, Rep. of"
+2018,EE,2.413,5.6,4.24,"Estonia, Rep. of"
+2019,EE,2.218,4.8,3.61,"Estonia, Rep. of"
+2020,EE,3.625,4.3,3.25,"Estonia, Rep. of"
+2021,EE,2.167,4.5,3.34,"Estonia, Rep. of"
+2022,EE,1.961,4.7,3.5,"Estonia, Rep. of"
+2000,FI,2.024,31.6,6.11,Finland
+2001,FI,1.365,32.6,6.29,Finland
+2002,FI,1.171,34.2,6.58,Finland
+2003,FI,0.713,36.1,6.93,Finland
+2004,FI,1.233,36.6,6.99,Finland
+2005,FI,2.201,33.6,6.4,Finland
+2006,FI,1.204,36.7,6.96,Finland
+2007,FI,1.946,36.0,6.81,Finland
+2008,FI,2.13,34.5,6.5,Finland
+2009,FI,1.695,32.3,6.06,Finland
+2010,FI,0.242,35.4,6.61,Finland
+2011,FI,1.354,34.2,6.35,Finland
+2012,FI,1.54,33.0,6.09,Finland
+2013,FI,1.424,32.0,5.88,Finland
+2014,FI,2.591,32.7,5.98,Finland
+2015,FI,2.613,31.2,5.69,Finland
+2016,FI,2.151,32.3,5.87,Finland
+2017,FI,1.487,32.2,5.84,Finland
+2018,FI,2.157,32.8,5.95,Finland
+2019,FI,1.452,32.1,5.81,Finland
+2020,FI,3.317,29.9,5.41,Finland
+2021,FI,1.938,31.5,5.68,Finland
+2022,FI,2.062,30.2,5.43,Finland
+2000,FR,1.175,239.0,3.93,France
+2001,FR,1.391,247.3,4.04,France
+2002,FR,1.054,248.8,4.04,France
+2003,FR,1.8,254.9,4.11,France
+2004,FR,0.969,259.2,4.14,France
+2005,FR,1.02,260.8,4.14,France
+2006,FR,1.306,256.1,4.04,France
+2007,FR,1.407,252.7,3.96,France
+2008,FR,0.992,255.4,3.98,France
+2009,FR,1.212,246.4,3.82,France
+2010,FR,0.395,254.5,3.93,France
+2011,FR,1.534,249.1,3.82,France
+2012,FR,1.22,249.1,3.81,France
+2013,FR,0.714,250.5,3.81,France
+2014,FR,2.049,239.9,3.62,France
+2015,FR,1.612,244.4,3.67,France
+2016,FR,1.794,240.1,3.6,France
+2017,FR,1.796,239.3,3.58,France
+2018,FR,2.06,238.8,3.56,France
+2019,FR,2.023,235.4,3.49,France
+2020,FR,2.551,208.0,3.08,France
+2021,FR,1.337,222.8,3.29,France
+2022,FR,2.929,205.0,3.01,France
+2000,DE,1.764,317.1,3.86,Germany
+2001,DE,1.292,327.1,3.97,Germany
+2002,DE,1.491,319.4,3.87,Germany
+2003,DE,1.258,321.9,3.9,Germany
+2004,DE,0.998,323.7,3.92,Germany
+2005,DE,1.025,321.6,3.9,Germany
+2006,DE,1.254,332.8,4.04,Germany
+2007,DE,2.088,315.8,3.84,Germany
+2008,DE,1.542,320.8,3.91,Germany
+2009,DE,1.282,299.9,3.66,Germany
+2010,DE,0.196,315.2,3.85,Germany
+2011,DE,1.121,297.8,3.71,Germany
+2012,DE,1.349,301.1,3.74,Germany
+2013,DE,0.583,308.3,3.82,Germany
+2014,DE,2.519,293.6,3.63,Germany
+2015,DE,1.674,295.9,3.62,Germany
+2016,DE,1.988,297.6,3.61,Germany
+2017,DE,1.653,298.1,3.61,Germany
+2018,DE,2.393,292.0,3.52,Germany
+2019,DE,2.332,285.2,3.43,Germany
+2020,DE,2.516,262.2,3.15,Germany
+2021,DE,1.325,271.5,3.26,Germany
+2022,DE,2.596,260.1,3.1,Germany
+2000,GR,0.679,27.2,2.51,Greece
+2001,GR,1.314,28.1,2.58,Greece
+2002,GR,0.435,28.5,2.61,Greece
+2003,GR,0.385,29.2,2.67,Greece
+2004,GR,0.337,29.7,2.71,Greece
+2005,GR,0.213,30.3,2.76,Greece
+2006,GR,0.254,30.3,2.75,Greece
+2007,GR,1.08,30.3,2.74,Greece
+2008,GR,0.881,30.5,2.75,Greece
+2009,GR,0.771,29.4,2.65,Greece
+2010,GR,1.584,27.2,2.45,Greece
+2011,GR,0.394,26.7,2.4,Greece
+2012,GR,1.235,26.5,2.4,Greece
+2013,GR,1.317,23.4,2.14,Greece
+2014,GR,1.06,23.3,2.14,Greece
+2015,GR,0.904,23.4,2.16,Greece
+2016,GR,1.561,23.1,2.14,Greece
+2017,GR,0.642,23.2,2.16,Greece
+2018,GR,1.905,22.6,2.11,Greece
+2019,GR,1.381,22.3,2.08,Greece
+2020,GR,1.307,19.2,1.8,Greece
+2021,GR,1.655,20.3,1.92,Greece
+2022,GR,1.04,20.9,2.0,Greece
+2000,HU,1.733,23.6,2.32,Hungary
+2001,HU,1.391,24.4,2.4,Hungary
+2002,HU,1.423,24.2,2.39,Hungary
+2003,HU,0.71,25.0,2.47,Hungary
+2004,HU,0.543,24.9,2.46,Hungary
+2005,HU,0.236,26.3,2.61,Hungary
+2006,HU,0.699,26.0,2.58,Hungary
+2007,HU,2.142,25.4,2.52,Hungary
+2008,HU,1.495,25.2,2.51,Hungary
+2009,HU,1.613,24.0,2.39,Hungary
+2010,HU,0.806,24.6,2.46,Hungary
+2011,HU,0.891,24.4,2.45,Hungary
+2012,HU,1.727,23.1,2.33,Hungary
+2013,HU,1.159,22.4,2.27,Hungary
+2014,HU,2.229,22.0,2.23,Hungary
+2015,HU,2.067,23.3,2.37,Hungary
+2016,HU,1.89,23.7,2.41,Hungary
+2017,HU,1.336,24.5,2.5,Hungary
+2018,HU,2.524,24.5,2.5,Hungary
+2019,HU,2.353,24.6,2.51,Hungary
+2020,HU,1.99,23.9,2.45,Hungary
+2021,HU,1.43,24.9,2.57,Hungary
+2022,HU,2.142,23.9,2.48,Hungary
+2000,IS,0.274,3.2,11.45,Iceland
+2001,IS,0.584,3.1,10.88,Iceland
+2002,IS,0.784,3.2,11.06,Iceland
+2003,IS,1.784,3.2,11.02,Iceland
+2004,IS,1.235,3.2,10.82,Iceland
+2005,IS,0.448,3.2,10.82,Iceland
+2006,IS,1.032,4.0,13.17,Iceland
+2007,IS,1.101,4.8,15.25,Iceland
+2008,IS,0.753,5.3,16.73,Iceland
+2009,IS,0.907,5.5,17.24,Iceland
+2010,IS,1.147,5.5,17.39,Iceland
+2011,IS,0.959,5.9,18.56,Iceland
+2012,IS,0.667,5.8,18.05,Iceland
+2013,IS,0.687,6.1,18.69,Iceland
+2014,IS,1.66,6.1,18.48,Iceland
+2015,IS,0.419,5.8,17.53,Iceland
+2016,IS,1.411,5.5,16.37,Iceland
+2017,IS,1.694,5.8,17.01,Iceland
+2018,IS,0.82,6.4,18.14,Iceland
+2019,IS,1.339,6.2,17.2,Iceland
+2020,IS,0.786,5.9,15.96,Iceland
+2021,IS,0.921,5.9,15.89,Iceland
+2022,IS,1.201,5.9,15.89,Iceland
+2000,IE,0.577,13.7,3.6,Ireland
+2001,IE,0.551,14.6,3.77,Ireland
+2002,IE,0.83,14.9,3.78,Ireland
+2003,IE,1.024,14.5,3.63,Ireland
+2004,IE,0.9,14.8,3.63,Ireland
+2005,IE,1.175,15.0,3.59,Ireland
+2006,IE,1.159,15.1,3.54,Ireland
+2007,IE,1.345,16.0,3.63,Ireland
+2008,IE,0.836,15.7,3.49,Ireland
+2009,IE,0.804,14.9,3.29,Ireland
+2010,IE,-0.104,14.7,3.23,Ireland
+2011,IE,0.559,13.6,2.96,Ireland
+2012,IE,0.705,13.7,2.98,Ireland
+2013,IE,0.568,13.0,2.81,Ireland
+2014,IE,1.357,13.2,2.83,Ireland
+2015,IE,0.449,13.9,2.96,Ireland
+2016,IE,1.04,14.7,3.08,Ireland
+2017,IE,1.264,14.6,3.03,Ireland
+2018,IE,0.783,14.6,3.0,Ireland
+2019,IE,1.201,14.7,2.98,Ireland
+2020,IE,1.075,13.5,2.7,Ireland
+2021,IE,1.019,13.8,2.75,Ireland
+2022,IE,1.764,14.3,2.78,Ireland
+2000,IT,1.243,166.1,2.92,Italy
+2001,IT,1.533,165.4,2.9,Italy
+2002,IT,0.913,166.7,2.92,Italy
+2003,IT,1.526,175.8,3.07,Italy
+2004,IT,0.746,177.7,3.08,Italy
+2005,IT,0.563,180.8,3.12,Italy
+2006,IT,0.84,179.0,3.08,Italy
+2007,IT,1.552,178.7,3.06,Italy
+2008,IT,1.133,176.1,2.99,Italy
+2009,IT,1.234,164.1,2.78,Italy
+2010,IT,0.755,167.3,2.82,Italy
+2011,IT,1.253,162.0,2.73,Italy
+2012,IT,1.543,156.6,2.63,Italy
+2013,IT,1.006,152.1,2.52,Italy
+2014,IT,1.638,142.7,2.35,Italy
+2015,IT,1.704,149.1,2.46,Italy
+2016,IT,1.716,148.0,2.44,Italy
+2017,IT,1.606,149.0,2.46,Italy
+2018,IT,1.834,147.3,2.44,Italy
+2019,IT,1.698,145.9,2.44,Italy
+2020,IT,1.902,132.4,2.23,Italy
+2021,IT,1.569,145.6,2.46,Italy
+2022,IT,2.135,139.3,2.36,Italy
+2000,LV,2.022,3.8,1.6,Latvia
+2001,LV,1.83,4.1,1.75,Latvia
+2002,LV,1.73,4.0,1.75,Latvia
+2003,LV,0.253,4.3,1.88,Latvia
+2004,LV,1.027,4.4,1.95,Latvia
+2005,LV,1.355,4.5,2.01,Latvia
+2006,LV,1.087,4.7,2.1,Latvia
+2007,LV,2.206,4.8,2.17,Latvia
+2008,LV,2.403,4.6,2.1,Latvia
+2009,LV,1.524,4.4,2.07,Latvia
+2010,LV,0.704,4.6,2.17,Latvia
+2011,LV,1.151,4.3,2.08,Latvia
+2012,LV,1.408,4.4,2.18,Latvia
+2013,LV,1.082,4.4,2.17,Latvia
+2014,LV,2.33,4.4,2.19,Latvia
+2015,LV,2.166,4.3,2.16,Latvia
+2016,LV,1.946,4.3,2.19,Latvia
+2017,LV,1.503,4.5,2.3,Latvia
+2018,LV,2.36,4.7,2.43,Latvia
+2019,LV,2.462,4.6,2.38,Latvia
+2020,LV,3.55,4.3,2.24,Latvia
+2021,LV,1.987,4.5,2.37,Latvia
+2022,LV,1.953,4.3,2.29,Latvia
+2000,LT,2.026,6.5,1.87,Lithuania
+2001,LT,1.804,7.5,2.17,Lithuania
+2002,LT,1.917,8.1,2.34,Lithuania
+2003,LT,0.182,8.4,2.46,Lithuania
+2004,LT,0.883,8.6,2.54,Lithuania
+2005,LT,1.206,8.1,2.42,Lithuania
+2006,LT,0.923,7.9,2.41,Lithuania
+2007,LT,2.196,8.1,2.51,Lithuania
+2008,LT,2.221,8.3,2.58,Lithuania
+2009,LT,1.396,7.9,2.5,Lithuania
+2010,LT,0.766,6.2,1.99,Lithuania
+2011,LT,0.957,5.9,1.95,Lithuania
+2012,LT,1.37,6.0,2.0,Lithuania
+2013,LT,0.967,5.8,1.96,Lithuania
+2014,LT,2.238,5.8,1.96,Lithuania
+2015,LT,2.095,5.8,1.99,Lithuania
+2016,LT,1.944,6.0,2.11,Lithuania
+2017,LT,1.542,6.2,2.18,Lithuania
+2018,LT,2.427,6.4,2.27,Lithuania
+2019,LT,2.642,6.3,2.25,Lithuania
+2020,LT,3.445,6.2,2.23,Lithuania
+2021,LT,1.792,6.6,2.37,Lithuania
+2022,LT,1.96,6.3,2.23,Lithuania
+2000,LU,1.651,3.6,8.25,Luxembourg
+2001,LU,1.433,3.8,8.61,Luxembourg
+2002,LU,1.393,4.0,8.92,Luxembourg
+2003,LU,1.692,4.2,9.28,Luxembourg
+2004,LU,1.013,4.7,10.17,Luxembourg
+2005,LU,1.129,4.8,10.25,Luxembourg
+2006,LU,1.357,4.7,9.92,Luxembourg
+2007,LU,1.94,4.6,9.6,Luxembourg
+2008,LU,1.279,4.6,9.43,Luxembourg
+2009,LU,1.188,4.3,8.72,Luxembourg
+2010,LU,0.325,4.6,9.09,Luxembourg
+2011,LU,1.343,4.5,8.74,Luxembourg
+2012,LU,1.262,4.4,8.32,Luxembourg
+2013,LU,0.569,4.3,7.91,Luxembourg
+2014,LU,2.475,4.2,7.53,Luxembourg
+2015,LU,1.528,4.1,7.27,Luxembourg
+2016,LU,1.877,4.2,7.13,Luxembourg
+2017,LU,1.647,4.3,7.19,Luxembourg
+2018,LU,2.468,4.5,7.34,Luxembourg
+2019,LU,2.155,4.5,7.26,Luxembourg
+2020,LU,2.632,3.9,6.25,Luxembourg
+2021,LU,1.158,4.2,6.55,Luxembourg
+2022,LU,2.926,3.8,5.82,Luxembourg
+2000,MT,1.055,0.8,2.08,Malta
+2001,MT,1.669,0.9,2.26,Malta
+2002,MT,0.942,0.8,2.1,Malta
+2003,MT,1.401,0.9,2.31,Malta
+2004,MT,0.699,0.9,2.32,Malta
+2005,MT,0.67,0.9,2.28,Malta
+2006,MT,0.996,0.9,2.27,Malta
+2007,MT,1.398,1.0,2.34,Malta
+2008,MT,1.271,1.0,2.35,Malta
+2009,MT,1.08,0.9,2.13,Malta
+2010,MT,1.243,0.9,2.24,Malta
+2011,MT,1.013,0.9,2.23,Malta
+2012,MT,1.44,1.0,2.31,Malta
+2013,MT,1.343,0.9,2.04,Malta
+2014,MT,1.507,0.9,2.05,Malta
+2015,MT,1.403,0.8,1.69,Malta
+2016,MT,1.748,0.7,1.56,Malta
+2017,MT,1.224,0.8,1.73,Malta
+2018,MT,1.441,0.8,1.69,Malta
+2019,MT,1.29,0.9,1.73,Malta
+2020,MT,1.643,0.7,1.44,Malta
+2021,MT,2.123,0.8,1.48,Malta
+2022,MT,1.955,0.9,1.67,Malta
+2000,NL,1.595,66.9,4.2,"Netherlands, The"
+2001,NL,1.266,69.0,4.3,"Netherlands, The"
+2002,NL,1.526,69.1,4.28,"Netherlands, The"
+2003,NL,1.207,70.5,4.34,"Netherlands, The"
+2004,NL,1.16,71.4,4.39,"Netherlands, The"
+2005,NL,1.252,70.1,4.3,"Netherlands, The"
+2006,NL,1.507,69.5,4.25,"Netherlands, The"
+2007,NL,2.074,69.4,4.23,"Netherlands, The"
+2008,NL,1.432,69.9,4.25,"Netherlands, The"
+2009,NL,1.223,67.6,4.09,"Netherlands, The"
+2010,NL,0.1,71.7,4.32,"Netherlands, The"
+2011,NL,1.071,67.1,4.02,"Netherlands, The"
+2012,NL,1.149,66.8,3.98,"Netherlands, The"
+2013,NL,0.427,66.2,3.94,"Netherlands, The"
+2014,NL,2.564,62.3,3.7,"Netherlands, The"
+2015,NL,1.29,59.0,3.48,"Netherlands, The"
+2016,NL,1.936,62.7,3.68,"Netherlands, The"
+2017,NL,1.731,61.3,3.58,"Netherlands, The"
+2018,NL,2.135,58.4,3.39,"Netherlands, The"
+2019,NL,2.142,63.8,3.68,"Netherlands, The"
+2020,NL,2.483,58.5,3.35,"Netherlands, The"
+2021,NL,1.316,60.8,3.46,"Netherlands, The"
+2022,NL,2.601,56.1,3.17,"Netherlands, The"
+2000,MK,1.07,2.7,1.32,"North Macedonia, Republic of "
+2001,MK,1.587,2.6,1.27,"North Macedonia, Republic of "
+2002,MK,0.364,2.5,1.24,"North Macedonia, Republic of "
+2003,MK,0.618,2.8,1.36,"North Macedonia, Republic of "
+2004,MK,0.362,2.7,1.34,"North Macedonia, Republic of "
+2005,MK,0.148,2.9,1.42,"North Macedonia, Republic of "
+2006,MK,0.372,2.9,1.44,"North Macedonia, Republic of "
+2007,MK,1.518,3.1,1.5,"North Macedonia, Republic of "
+2008,MK,1.128,3.0,1.47,"North Macedonia, Republic of "
+2009,MK,1.011,2.8,1.36,"North Macedonia, Republic of "
+2010,MK,1.346,2.9,1.39,"North Macedonia, Republic of "
+2011,MK,0.735,3.1,1.48,"North Macedonia, Republic of "
+2012,MK,1.448,3.0,1.43,"North Macedonia, Republic of "
+2013,MK,1.415,2.7,1.32,"North Macedonia, Republic of "
+2014,MK,1.292,2.7,1.29,"North Macedonia, Republic of "
+2015,MK,1.479,2.6,1.26,"North Macedonia, Republic of "
+2016,MK,1.635,2.6,1.24,"North Macedonia, Republic of "
+2017,MK,1.06,2.7,1.29,"North Macedonia, Republic of "
+2018,MK,2.083,2.5,1.22,"North Macedonia, Republic of "
+2019,MK,1.822,2.8,1.35,"North Macedonia, Republic of "
+2020,MK,1.467,2.5,1.23,"North Macedonia, Republic of "
+2021,MK,1.53,2.6,1.35,"North Macedonia, Republic of "
+2022,MK,1.404,2.6,1.35,"North Macedonia, Republic of "
+2000,NO,1.427,23.4,5.21,Norway
+2001,NO,0.613,24.7,5.48,Norway
+2002,NO,1.386,22.8,5.03,Norway
+2003,NO,1.089,24.7,5.42,Norway
+2004,NO,1.3,26.4,5.75,Norway
+2005,NO,1.759,27.2,5.87,Norway
+2006,NO,1.504,27.4,5.87,Norway
+2007,NO,1.702,25.3,5.37,Norway
+2008,NO,1.619,28.3,5.93,Norway
+2009,NO,1.393,27.9,5.78,Norway
+2010,NO,-0.341,29.8,6.09,Norway
+2011,NO,1.398,25.7,5.18,Norway
+2012,NO,1.063,27.5,5.48,Norway
+2013,NO,0.791,28.8,5.68,Norway
+2014,NO,2.412,26.2,5.1,Norway
+2015,NO,1.781,23.1,4.45,Norway
+2016,NO,1.718,26.0,4.96,Norway
+2017,NO,1.551,27.4,5.19,Norway
+2018,NO,1.485,27.4,5.15,Norway
+2019,NO,1.208,25.9,4.84,Norway
+2020,NO,2.389,25.2,4.69,Norway
+2021,NO,1.499,26.3,4.86,Norway
+2022,NO,1.918,26.3,4.86,Norway
+2000,PL,1.887,84.9,2.22,"Poland, Rep. of"
+2001,PL,1.285,86.0,2.25,"Poland, Rep. of"
+2002,PL,1.7,85.1,2.23,"Poland, Rep. of"
+2003,PL,0.366,87.0,2.28,"Poland, Rep. of"
+2004,PL,0.781,87.0,2.28,"Poland, Rep. of"
+2005,PL,0.881,88.0,2.3,"Poland, Rep. of"
+2006,PL,0.835,92.3,2.42,"Poland, Rep. of"
+2007,PL,2.147,91.9,2.41,"Poland, Rep. of"
+2008,PL,1.752,93.1,2.44,"Poland, Rep. of"
+2009,PL,1.274,89.5,2.35,"Poland, Rep. of"
+2010,PL,0.403,96.6,2.54,"Poland, Rep. of"
+2011,PL,0.765,96.6,2.54,"Poland, Rep. of"
+2012,PL,1.383,92.8,2.44,"Poland, Rep. of"
+2013,PL,0.651,93.4,2.46,"Poland, Rep. of"
+2014,PL,2.38,89.5,2.35,"Poland, Rep. of"
+2015,PL,2.013,90.1,2.37,"Poland, Rep. of"
+2016,PL,2.056,94.8,2.5,"Poland, Rep. of"
+2017,PL,1.475,99.1,2.61,"Poland, Rep. of"
+2018,PL,2.434,104.1,2.74,"Poland, Rep. of"
+2019,PL,2.652,100.2,2.64,"Poland, Rep. of"
+2020,PL,2.677,96.8,2.56,"Poland, Rep. of"
+2021,PL,1.466,104.0,2.81,"Poland, Rep. of"
+2022,PL,2.056,98.5,2.67,"Poland, Rep. of"
+2000,PT,0.665,23.0,2.23,Portugal
+2001,PT,1.165,23.3,2.25,Portugal
+2002,PT,0.681,24.4,2.34,Portugal
+2003,PT,1.458,23.6,2.25,Portugal
+2004,PT,1.062,24.2,2.31,Portugal
+2005,PT,1.032,24.9,2.37,Portugal
+2006,PT,1.561,24.0,2.28,Portugal
+2007,PT,0.775,23.9,2.26,Portugal
+2008,PT,0.649,23.6,2.24,Portugal
+2009,PT,1.423,23.6,2.24,Portugal
+2010,PT,1.122,22.7,2.14,Portugal
+2011,PT,1.615,22.0,2.08,Portugal
+2012,PT,0.797,21.0,2.0,Portugal
+2013,PT,0.941,21.0,2.01,Portugal
+2014,PT,1.349,20.7,1.99,Portugal
+2015,PT,1.405,21.7,2.09,Portugal
+2016,PT,1.682,21.8,2.11,Portugal
+2017,PT,2.109,22.8,2.21,Portugal
+2018,PT,0.906,22.7,2.2,Portugal
+2019,PT,1.291,22.1,2.15,Portugal
+2020,PT,1.99,19.5,1.89,Portugal
+2021,PT,1.251,19.5,1.88,Portugal
+2022,PT,2.318,20.8,2.0,Portugal
+2000,RO,1.338,34.9,1.55,Romania
+2001,RO,1.537,35.2,1.59,Romania
+2002,RO,1.22,36.5,1.68,Romania
+2003,RO,0.145,38.3,1.78,Romania
+2004,RO,0.556,37.3,1.74,Romania
+2005,RO,0.298,36.1,1.69,Romania
+2006,RO,0.514,37.5,1.77,Romania
+2007,RO,2.126,37.4,1.79,Romania
+2008,RO,1.335,37.3,1.82,Romania
+2009,RO,1.617,32.7,1.6,Romania
+2010,RO,1.167,33.0,1.63,Romania
+2011,RO,0.497,33.5,1.66,Romania
+2012,RO,1.828,33.3,1.66,Romania
+2013,RO,1.37,30.4,1.52,Romania
+2014,RO,1.552,30.1,1.51,Romania
+2015,RO,1.799,30.8,1.55,Romania
+2016,RO,1.876,30.7,1.56,Romania
+2017,RO,1.153,32.5,1.66,Romania
+2018,RO,2.266,32.6,1.67,Romania
+2019,RO,2.241,32.1,1.66,Romania
+2020,RO,2.256,30.9,1.61,Romania
+2021,RO,1.447,33.1,1.73,Romania
+2022,RO,1.949,31.0,1.63,Romania
+2000,SK,1.621,16.4,3.03,Slovak Rep.
+2001,SK,1.237,17.2,3.2,Slovak Rep.
+2002,SK,1.376,17.3,3.22,Slovak Rep.
+2003,SK,0.648,17.3,3.21,Slovak Rep.
+2004,SK,0.539,16.9,3.15,Slovak Rep.
+2005,SK,0.395,17.4,3.24,Slovak Rep.
+2006,SK,0.629,17.2,3.21,Slovak Rep.
+2007,SK,2.148,16.4,3.06,Slovak Rep.
+2008,SK,1.523,17.0,3.16,Slovak Rep.
+2009,SK,1.496,15.5,2.88,Slovak Rep.
+2010,SK,0.685,17.4,3.22,Slovak Rep.
+2011,SK,0.84,16.6,3.08,Slovak Rep.
+2012,SK,1.569,16.3,3.02,Slovak Rep.
+2013,SK,0.949,16.4,3.03,Slovak Rep.
+2014,SK,2.379,15.2,2.81,Slovak Rep.
+2015,SK,2.122,15.8,2.91,Slovak Rep.
+2016,SK,1.959,16.0,2.95,Slovak Rep.
+2017,SK,1.276,16.8,3.08,Slovak Rep.
+2018,SK,2.549,16.3,2.99,Slovak Rep.
+2019,SK,2.42,16.0,2.93,Slovak Rep.
+2020,SK,2.027,15.2,2.78,Slovak Rep.
+2021,SK,1.287,16.4,3.02,Slovak Rep.
+2022,SK,2.018,15.5,2.85,Slovak Rep.
+2000,SI,1.782,6.3,3.18,"Slovenia, Rep. of"
+2001,SI,1.706,6.7,3.38,"Slovenia, Rep. of"
+2002,SI,1.498,6.8,3.39,"Slovenia, Rep. of"
+2003,SI,1.426,6.8,3.42,"Slovenia, Rep. of"
+2004,SI,0.726,7.0,3.5,"Slovenia, Rep. of"
+2005,SI,0.476,7.3,3.62,"Slovenia, Rep. of"
+2006,SI,0.86,7.2,3.58,"Slovenia, Rep. of"
+2007,SI,2.165,7.3,3.61,"Slovenia, Rep. of"
+2008,SI,1.574,7.7,3.82,"Slovenia, Rep. of"
+2009,SI,1.628,6.8,3.34,"Slovenia, Rep. of"
+2010,SI,0.769,7.0,3.43,"Slovenia, Rep. of"
+2011,SI,1.354,7.1,3.46,"Slovenia, Rep. of"
+2012,SI,1.931,6.8,3.32,"Slovenia, Rep. of"
+2013,SI,1.234,6.7,3.23,"Slovenia, Rep. of"
+2014,SI,2.431,6.4,3.1,"Slovenia, Rep. of"
+2015,SI,2.125,6.3,3.07,"Slovenia, Rep. of"
+2016,SI,2.046,6.6,3.17,"Slovenia, Rep. of"
+2017,SI,1.721,6.7,3.26,"Slovenia, Rep. of"
+2018,SI,2.412,6.7,3.21,"Slovenia, Rep. of"
+2019,SI,2.34,6.5,3.12,"Slovenia, Rep. of"
+2020,SI,2.228,6.2,2.93,"Slovenia, Rep. of"
+2021,SI,1.524,6.3,3.0,"Slovenia, Rep. of"
+2022,SI,2.435,6.2,2.93,"Slovenia, Rep. of"
+2000,ES,0.81,114.5,2.82,Spain
+2001,ES,1.406,117.5,2.88,Spain
+2002,ES,0.812,121.3,2.93,Spain
+2003,ES,1.598,126.1,2.99,Spain
+2004,ES,1.004,132.8,3.09,Spain
+2005,ES,0.902,136.0,3.12,Spain
+2006,ES,1.526,136.6,3.08,Spain
+2007,ES,0.835,138.8,3.07,Spain
+2008,ES,0.864,133.9,2.91,Spain
+2009,ES,1.36,123.0,2.65,Spain
+2010,ES,0.908,123.0,2.64,Spain
+2011,ES,1.613,122.7,2.62,Spain
+2012,ES,1.043,123.0,2.63,Spain
+2013,ES,0.906,115.7,2.48,Spain
+2014,ES,1.603,113.8,2.45,Spain
+2015,ES,1.533,118.2,2.54,Spain
+2016,ES,1.714,118.4,2.55,Spain
+2017,ES,2.036,124.9,2.68,Spain
+2018,ES,1.149,124.3,2.66,Spain
+2019,ES,1.534,120.6,2.56,Spain
+2020,ES,2.083,105.0,2.22,Spain
+2021,ES,1.431,111.5,2.35,Spain
+2022,ES,2.489,113.2,2.37,Spain
+2000,SE,1.721,46.0,5.18,Sweden
+2001,SE,1.071,48.5,5.45,Sweden
+2002,SE,1.566,49.1,5.5,Sweden
+2003,SE,0.914,48.5,5.41,Sweden
+2004,SE,1.198,50.5,5.61,Sweden
+2005,SE,1.825,49.0,5.43,Sweden
+2006,SE,1.485,47.7,5.25,Sweden
+2007,SE,1.938,47.4,5.18,Sweden
+2008,SE,1.954,47.3,5.12,Sweden
+2009,SE,1.432,43.1,4.63,Sweden
+2010,SE,-0.279,48.3,5.15,Sweden
+2011,SE,1.267,47.6,5.03,Sweden
+2012,SE,1.313,47.5,4.98,Sweden
+2013,SE,0.857,46.4,4.84,Sweden
+2014,SE,2.704,46.0,4.74,Sweden
+2015,SE,2.069,43.8,4.47,Sweden
+2016,SE,1.841,45.4,4.57,Sweden
+2017,SE,1.588,46.4,4.61,Sweden
+2018,SE,1.844,47.3,4.64,Sweden
+2019,SE,1.568,45.8,4.45,Sweden
+2020,SE,2.943,41.3,3.99,Sweden
+2021,SE,1.846,43.3,4.16,Sweden
+2022,SE,2.11,42.5,4.05,Sweden
+2000,GB,0.724,222.0,3.77,United Kingdom
+2001,GB,0.631,224.0,3.79,United Kingdom
+2002,GB,1.011,220.0,3.71,United Kingdom
+2003,GB,1.194,223.8,3.75,United Kingdom
+2004,GB,1.035,221.4,3.69,United Kingdom
+2005,GB,1.116,223.5,3.7,United Kingdom
+2006,GB,1.25,220.4,3.62,United Kingdom
+2007,GB,1.332,214.5,3.5,United Kingdom
+2008,GB,0.838,211.8,3.43,United Kingdom
+2009,GB,0.948,196.0,3.15,United Kingdom
+2010,GB,-0.05,205.1,3.27,United Kingdom
+2011,GB,0.851,190.1,3.0,United Kingdom
+2012,GB,0.576,195.2,3.06,United Kingdom
+2013,GB,0.364,191.6,2.99,United Kingdom
+2014,GB,1.718,180.7,2.8,United Kingdom
+2015,GB,0.614,182.6,2.8,United Kingdom
+2016,GB,1.161,179.4,2.73,United Kingdom
+2017,GB,1.424,177.3,2.68,United Kingdom
+2018,GB,0.998,177.2,2.67,United Kingdom
+2019,GB,1.231,174.3,2.61,United Kingdom
+2020,GB,1.373,174.3,2.61,United Kingdom
+2021,GB,0.929,174.3,2.61,United Kingdom
+2022,GB,1.911,174.3,2.61,United Kingdom
