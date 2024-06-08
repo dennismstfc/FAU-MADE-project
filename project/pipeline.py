@@ -5,7 +5,7 @@ from preprocessing import DataPreprocesser
 
 
 class DataPipeline:
-    def __init__(self, ):
+    def __init__(self):
         self.ROOT_DIR = os.path.join("..", "data")
         self.kaggle = os.path.join(self.ROOT_DIR, "climate_change_indicators.csv")
         self.eurostat = os.path.join(self.ROOT_DIR, "sdg_07_10_linear.csv")
