@@ -1,6 +1,9 @@
-name: Execute unittests
+name: Execute unittests when pushing to main
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   test:
@@ -15,5 +18,11 @@ jobs:
       with:
         python-version: 3.11
 
+    - name: Set up unit test script permissions
+      run: chmod +x project/tests.sh
+
     - name: Run unit tests
-      run: bash ./project/tests.sh
+      env: 
+        KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+        KAGGLE_KEY: ${{ secrets.KAGGLE_API_KEY }}
+      run: bash ./project/tests.sh 
