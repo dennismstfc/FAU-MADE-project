@@ -1,0 +1,65 @@
+pipeline StopsPipeline {
+    GTFSHTTPExtractor
+        -> GTFSArchiveInterpreter 
+        -> StopsFilePicker
+        -> StopsTextFileInterpreter
+        -> StopsCSVInterpreter
+        -> StopsTableInterpreter
+        -> StopsLoader;
+
+
+    block GTFSHTTPExtractor oftype HttpExtractor {
+        url: "https://gtfs.rhoenenergie-bus.de/GTFS.zip";
+    }
+
+    block GTFSArchiveInterpreter oftype ArchiveInterpreter {
+        archiveType: "zip";
+    }
+
+    block StopsFilePicker oftype FilePicker {
+        path: "/stops.txt";
+    }
+
+    // Using actually no encoding does help to obtain the german umlauts correctly
+    block StopsTextFileInterpreter oftype TextFileInterpreter {}
+
+    block StopsCSVInterpreter oftype CSVInterpreter {
+        delimiter: ",";
+        enclosing: '"';
+    }
+
+    // Defining custom data types
+    constraint ZoneConstraint on integer: value == 1645;
+
+    valuetype ZoneValue oftype integer {
+        constraints: [ZoneConstraint];
+    }
+
+    // Upper and lower bounds are included by default
+    constraint LatLongConstraint oftype RangeConstraint  {
+        lowerBound: -90;
+        upperBound: 90;
+    } 
+
+    valuetype LatLongValue oftype decimal {
+        constraints: [LatLongConstraint];
+    }
+
+
+    block StopsTableInterpreter oftype TableInterpreter {
+        header: true;
+        columns: [
+            "stop_id" oftype integer,
+            "stop_name" oftype text,
+            "stop_lat" oftype LatLongValue,
+            "stop_lon" oftype LatLongValue,
+            "zone_id" oftype ZoneValue,
+        ];
+    }
+    
+    
+    block StopsLoader oftype SQLiteLoader {
+        table: "stops";
+        file: "./gtfs.sqlite";
+    }
+}
