@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from shapely.geometry import Polygon
 
+from typing import Tuple
+
 ROOT_DIR = os.path.join("..", "data")
 
 
@@ -35,7 +37,13 @@ class Analysis:
         self.__enrich_data_with_geopandas()
         self.PLOT_ROOT_DIR = os.path.join("..", "plots")
         self.__create_plot_folder()
-        
+
+        self.column_name_to_title_description = {
+            "CHANGE_INDICATOR": "Temperature change indicator (degrees Celsius)",
+            "TOE_HAB": "Tonnes of Oil Equivalents per capita",
+            "MTOE": "Total Million Tonnes of Oil Equivalent per year",
+        }
+
 
     def __create_plot_folder(self) -> None:
         if not os.path.exists(self.PLOT_ROOT_DIR):
@@ -72,11 +80,10 @@ class Analysis:
             "COUNTRY",
             "ISO2",
             "ISO3",
+            "gdp_md_est"
             ], axis=1)
         
-        # Renaming columns
         europe = europe.rename(columns={
-            "gdp_md_est": "GDP",
             "name": "COUNTRY"
         })
 
@@ -100,11 +107,11 @@ class Analysis:
 
             europe_avg.boundary.plot(ax=ax, color="black")
             europe_avg.plot(column=column+"_avg", ax=ax, legend=True, cmap="Reds")
-            plt.title("Average " + column)
+            plt.title("Average " + self.column_name_to_title_description[column])
         else:
             self.europe.boundary.plot(ax=ax, color="black")
             self.europe.plot(column=column, ax=ax, legend=True, cmap="Reds")
-            plt.title(column)
+            plt.title(self.column_name_to_title_description[column])
         
         # Removing numbers from the axis
         plt.xticks([])
@@ -129,7 +136,7 @@ class Analysis:
 
         plt.figure(figsize=(20, 10))
         sns.heatmap(pivot_table, annot=True, cmap=cmap, fmt=".2f")
-        plt.title(f"{column} over the years for each country")    
+        plt.title(f"{self.column_name_to_title_description[column]} over the years for each country")    
         plt.ylabel("Country")
         plt.xlabel("Year")
 
@@ -142,7 +149,9 @@ class Analysis:
             self, 
             column: str,
             average: bool = True,
-            confidence_interval: bool = False
+            confidence_interval: bool = False,
+            ylim: Tuple[int, int] = None,
+            xlim: Tuple[int, int] = None
             ) -> None:
 
         if column not in self.europe.columns:
@@ -154,7 +163,7 @@ class Analysis:
                 average_data, on="TIME_PERIOD", suffixes=("", "_avg"))
 
             sns.lineplot(data=europe_avg, x="TIME_PERIOD", y=column+"_avg")
-            plt.title("Average " + column)
+            plt.title("Average " + self.column_name_to_title_description[column])
         
             if confidence_interval:
                 ci_per_year = self.europe.groupby("TIME_PERIOD")[column].agg(["std", "size"]).reset_index()
@@ -171,9 +180,18 @@ class Analysis:
 
         else:
             self.europe.plot(x="TIME_PERIOD", y=column, legend=False)
-            plt.title(column)
-        
-        plt.ylabel(column)
+            plt.title(self.column_name_to_title_description[column])
+
+        if ylim:
+            plt.ylim(ylim)
+        if xlim:
+            plt.xlim(xlim)
+
+        if column == "CHANGE_INDICATOR":
+            plt.ylabel("Temperature change in degrees Celsius")
+        else:
+            plt.ylabel(column)
+
         plt.xlabel("Year")
         plt.grid(True)
         plt.legend()
@@ -181,6 +199,49 @@ class Analysis:
         save_path = os.path.join(self.PLOT_ROOT_DIR, column + "_lineplot.png")
         plt.savefig(save_path)
 
+        plt.show()
+
+    def create_scatterplot(
+            self,
+            column_x: str, 
+            column_y: str, 
+            average: bool = False) -> None:
+        
+        if column_x not in self.europe.columns:
+            raise ValueError(f"Column {column_x} not in the dataframe")
+        if column_y not in self.europe.columns:
+            raise ValueError(f"Column {column_y} not in the dataframe")
+        
+        if average:
+            average_data = self.europe.groupby("COUNTRY")[column_x].mean().reset_index()
+            europe_avg = self.europe.drop_duplicates("COUNTRY").merge(
+                average_data, on="COUNTRY", suffixes=("", "_avg"))
+
+            sns.scatterplot(data=europe_avg, x=column_x+"_avg", y=column_y)
+            plt.title(f"Average {self.column_name_to_title_description[column_x]} vs {self.column_name_to_title_description[column_y]}")
+
+        else:
+            sns.scatterplot(data=self.europe, x=column_x, y=column_y)
+            plt.title(f"{self.column_name_to_title_description[column_x]} vs {self.column_name_to_title_description[column_y]}")
+
+        plt.xlabel(self.column_name_to_title_description[column_x])
+        plt.ylabel(self.column_name_to_title_description[column_y])
+
+        save_path = os.path.join(self.PLOT_ROOT_DIR, column_x + "_" + column_y + "_scatterplot.png")
+        plt.savefig(save_path)
+
+        plt.show()
+
+    def create_correlation_plot(self) -> None:
+        plt.figure(figsize=(12, 10))
+        
+        tmp_europe = self.europe.drop(
+            ["TIME_PERIOD", "geometry", "COUNTRY"], axis=1)
+
+        sns.heatmap(tmp_europe.corr(), annot=True, cmap="coolwarm")
+        
+        save_path = os.path.join(self.PLOT_ROOT_DIR, "correlation_plot.png")
+        plt.savefig(save_path)
         plt.show()
 
 
@@ -197,5 +258,22 @@ if __name__ == "__main__":
     analysis.create_heatmap("MTOE", cmap="coolwarm")
 
     analysis.create_lineplot("CHANGE_INDICATOR", average=True, confidence_interval=True)
-    analysis.create_lineplot("TOE_HAB", average=True, confidence_interval=True)
-    analysis.create_lineplot("MTOE", average=True, confidence_interval=True)
+    
+    analysis.create_lineplot(
+        "TOE_HAB", 
+        average=True, 
+        confidence_interval=True,
+        ylim=(1, 6)
+        )
+
+    analysis.create_lineplot(
+        "MTOE", 
+        average=True, 
+        confidence_interval=True,
+        ylim=(0, 100)
+        )
+    
+    analysis.create_scatterplot("CHANGE_INDICATOR", "TOE_HAB", average=True)
+    analysis.create_scatterplot("CHANGE_INDICATOR", "MTOE", average=True)
+
+    analysis.create_correlation_plot()
