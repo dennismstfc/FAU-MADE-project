@@ -9,7 +9,7 @@ pipeline TrainGoodsPipeline {
         -> TrainLoader;
 
     block TrainHTTPExtractor oftype HttpExtractor {
-        url: "https://www-genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
+        url: "https://www.genesis.destatis.de/genesis/downloads/00/tables/46131-0014_00.csv";
     }
 
     block TrainTextFileInterpreter oftype TextFileInterpreter {
