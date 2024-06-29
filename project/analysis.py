@@ -42,7 +42,6 @@ class Analysis:
             os.makedirs(self.PLOT_ROOT_DIR)
 
     def __enrich_data_with_geopandas(self) -> gpd.GeoDataFrame:
-
         # Load the world map
         world = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
         europe = world[world["continent"] == "Europe"]
@@ -115,21 +114,17 @@ class Analysis:
         
         save_path = os.path.join(self.PLOT_ROOT_DIR, column + "_map.png")
         plt.savefig(save_path)
-
         plt.show()
-
 
     def create_heatmap(
             self, 
             column: str, 
-            cmap: str) -> None:
+            cmap: str
+            ) -> None:
 
         if column not in self.europe.columns:
             raise ValueError(f"Column {column} not in the dataframe")
 
-        print(self.europe.head())
-        print(type(self.europe))
-        
         pivot_table = self.europe.pivot(index="COUNTRY", columns="TIME_PERIOD", values=column)
 
         plt.figure(figsize=(20, 10))
@@ -143,6 +138,50 @@ class Analysis:
         plt.tight_layout()  
         plt.show()
         
+    def create_lineplot(
+            self, 
+            column: str,
+            average: bool = True,
+            confidence_interval: bool = False
+            ) -> None:
+
+        if column not in self.europe.columns:
+            raise ValueError(f"Column {column} not in the dataframe")
+        
+        if average:
+            average_data = self.europe.groupby("TIME_PERIOD")[column].mean().reset_index()
+            europe_avg = self.europe.drop_duplicates("TIME_PERIOD").merge(
+                average_data, on="TIME_PERIOD", suffixes=("", "_avg"))
+
+            sns.lineplot(data=europe_avg, x="TIME_PERIOD", y=column+"_avg")
+            plt.title("Average " + column)
+        
+            if confidence_interval:
+                ci_per_year = self.europe.groupby("TIME_PERIOD")[column].agg(["std", "size"]).reset_index()
+
+                # Calculating by default a 95% confidence interval. TODO: Make it a parameter
+                ci_per_year["ci"] = 1.96 * ci_per_year["std"] / ci_per_year["size"]**0.5
+
+                plt.fill_between(
+                    ci_per_year["TIME_PERIOD"], 
+                    europe_avg[column+"_avg"] - ci_per_year["ci"], 
+                    europe_avg[column+"_avg"] + ci_per_year["ci"], 
+                    alpha=0.3, label="95% confidence interval"
+                )
+
+        else:
+            self.europe.plot(x="TIME_PERIOD", y=column, legend=False)
+            plt.title(column)
+        
+        plt.ylabel(column)
+        plt.xlabel("Year")
+        plt.grid(True)
+        plt.legend()
+
+        save_path = os.path.join(self.PLOT_ROOT_DIR, column + "_lineplot.png")
+        plt.savefig(save_path)
+
+        plt.show()
 
 
 if __name__ == "__main__":
@@ -152,6 +191,11 @@ if __name__ == "__main__":
 
     analysis = Analysis(data)
     analysis.create_map_plot("CHANGE_INDICATOR", average=True)
+
     analysis.create_heatmap("CHANGE_INDICATOR", cmap="Reds")
     analysis.create_heatmap("TOE_HAB", cmap="coolwarm")
     analysis.create_heatmap("MTOE", cmap="coolwarm")
+
+    analysis.create_lineplot("CHANGE_INDICATOR", average=True, confidence_interval=True)
+    analysis.create_lineplot("TOE_HAB", average=True, confidence_interval=True)
+    analysis.create_lineplot("MTOE", average=True, confidence_interval=True)
