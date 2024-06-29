@@ -3,10 +3,10 @@ import pandas as pd
 import geopandas as gpd
 import pandas as pd
 
-import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 from shapely.geometry import Polygon
+from matplotlib.lines import Line2D
 
 from typing import Tuple
 
@@ -41,7 +41,7 @@ class Analysis:
         self.column_name_to_title_description = {
             "CHANGE_INDICATOR": "Temperature change indicator (degrees Celsius)",
             "TOE_HAB": "Tonnes of Oil Equivalents per capita",
-            "MTOE": "Total Million Tonnes of Oil Equivalent per year",
+            "MTOE": "Million Tonnes of Oil Equivalent per GDP",
         }
 
 
@@ -107,7 +107,13 @@ class Analysis:
 
             europe_avg.boundary.plot(ax=ax, color="black")
             europe_avg.plot(column=column+"_avg", ax=ax, legend=True, cmap="Reds")
-            plt.title("Average " + self.column_name_to_title_description[column])
+
+            if column == "CHANGE_INDICATOR":
+                plt.title("Average temperature increase in degrees Celsius (2000 - 2022)")
+            else:
+                plt.title(f"Average {self.column_name_to_title_description[column]} (2000 - 2022)")
+                
+
         else:
             self.europe.boundary.plot(ax=ax, color="black")
             self.europe.plot(column=column, ax=ax, legend=True, cmap="Reds")
@@ -244,6 +250,58 @@ class Analysis:
         plt.savefig(save_path)
         plt.show()
 
+    def twinx_plot(
+            self, 
+            column_1: str, 
+            column_2: str, 
+            average: bool = True) -> None:
+
+        if column_1 not in self.europe.columns:
+            raise ValueError(f"Column {column_1} not in the dataframe")
+        if column_2 not in self.europe.columns:
+            raise ValueError(f"Column {column_2} not in the dataframe")
+        
+        fig, ax1 = plt.subplots(figsize=(20, 10))
+
+        if average:
+            average_data_1 = self.europe.groupby("TIME_PERIOD")[column_1].mean().reset_index()
+            europe_avg_1 = self.europe.drop_duplicates("TIME_PERIOD").merge(
+                average_data_1, on="TIME_PERIOD", suffixes=("", "_avg"))
+
+            sns.lineplot(data=europe_avg_1, x="TIME_PERIOD", y=column_1+"_avg", ax=ax1)
+            ax1.set_ylabel(self.column_name_to_title_description[column_1])
+            ax1.set_xlabel("Year")
+            ax1.grid(True)
+
+            ax2 = ax1.twinx()
+            average_data_2 = self.europe.groupby("TIME_PERIOD")[column_2].mean().reset_index()
+            europe_avg_2 = self.europe.drop_duplicates("TIME_PERIOD").merge(
+                average_data_2, on="TIME_PERIOD", suffixes=("", "_avg"))
+
+            sns.lineplot(data=europe_avg_2, x="TIME_PERIOD", y=column_2+"_avg", ax=ax2, color="red")
+            ax2.set_ylabel(self.column_name_to_title_description[column_2], color="red")
+
+            plt.title(f"Average {self.column_name_to_title_description[column_1]} and {self.column_name_to_title_description[column_2]} over the years")
+
+            # Creating unified legend
+            legend_handles = [Line2D([0], [0], color='blue', label=column_1),
+                            Line2D([0], [0], color='red', label=column_2)]
+            ax1.legend(handles=legend_handles)
+
+        else:
+            self.europe.plot(x="TIME_PERIOD", y=column_1, legend=False)
+            plt.title(self.column_name_to_title_description[column_1])
+
+            ax2 = ax1.twinx()
+            self.europe.plot(x="TIME_PERIOD", y=column_2, legend=False, ax=ax2, color="red")
+            plt.title(self.column_name_to_title_description[column_2])
+
+        
+        save_path = os.path.join(self.PLOT_ROOT_DIR, column_1 + "_" + column_2 + "_twinx_plot.png")
+        plt.savefig(save_path)
+
+        plt.show()
+
 
 if __name__ == "__main__":
     data_path = os.path.join(ROOT_DIR, "final_data.csv")
@@ -251,6 +309,7 @@ if __name__ == "__main__":
     data = pd.read_csv(data_path)
 
     analysis = Analysis(data)
+    
     analysis.create_map_plot("CHANGE_INDICATOR", average=True)
 
     analysis.create_heatmap("CHANGE_INDICATOR", cmap="Reds")
@@ -262,14 +321,14 @@ if __name__ == "__main__":
     analysis.create_lineplot(
         "TOE_HAB", 
         average=True, 
-        confidence_interval=True,
+        confidence_interval=False,
         ylim=(1, 6)
         )
 
     analysis.create_lineplot(
         "MTOE", 
         average=True, 
-        confidence_interval=True,
+        confidence_interval=False,
         ylim=(0, 100)
         )
     
@@ -277,3 +336,4 @@ if __name__ == "__main__":
     analysis.create_scatterplot("CHANGE_INDICATOR", "MTOE", average=True)
 
     analysis.create_correlation_plot()
+    analysis.twinx_plot("MTOE", "TOE_HAB", average=True)
