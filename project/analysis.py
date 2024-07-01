@@ -109,10 +109,12 @@ class Analysis:
             europe_avg.plot(column=column+"_avg", ax=ax, legend=True, cmap="Reds")
 
             if column == "CHANGE_INDICATOR":
-                plt.title("Average temperature increase in degrees Celsius (2000 - 2022)", fontsize=25)
+                plt.title("Average temperature increase", fontsize=20)
             else:
                 plt.title(f"Average {self.column_name_to_title_description[column]} (2000 - 2022)")
-                
+            
+            cbar = ax.get_figure().get_axes()[1]
+            cbar.tick_params(labelsize=15)
 
         else:
             self.europe.boundary.plot(ax=ax, color="black")
