@@ -109,7 +109,7 @@ class Analysis:
             europe_avg.plot(column=column+"_avg", ax=ax, legend=True, cmap="Reds")
 
             if column == "CHANGE_INDICATOR":
-                plt.title("Average temperature increase in degrees Celsius (2000 - 2022)")
+                plt.title("Average temperature increase in degrees Celsius (2000 - 2022)", fontsize=25)
             else:
                 plt.title(f"Average {self.column_name_to_title_description[column]} (2000 - 2022)")
                 
@@ -211,7 +211,8 @@ class Analysis:
             self,
             column_x: str, 
             column_y: str, 
-            average: bool = False) -> None:
+            average: bool = False
+            ) -> None:
         
         if column_x not in self.europe.columns:
             raise ValueError(f"Column {column_x} not in the dataframe")
@@ -238,23 +239,42 @@ class Analysis:
 
         plt.show()
 
-    def create_correlation_plot(self) -> None:
+    def create_correlation_plot(
+            self, 
+            method: str = "spearman",
+            label_fontsize: int = 15, 
+            annot_fontsize: int = 10
+            ) -> None:
+
         plt.figure(figsize=(12, 10))
         
         tmp_europe = self.europe.drop(
             ["TIME_PERIOD", "geometry", "COUNTRY"], axis=1)
 
-        sns.heatmap(tmp_europe.corr(), annot=True, cmap="coolwarm")
+        sns.heatmap(
+            tmp_europe.corr(method=method), 
+            annot=True, 
+            cmap="coolwarm", 
+            annot_kws={"size": annot_fontsize}
+            )
         
-        save_path = os.path.join(self.PLOT_ROOT_DIR, "correlation_plot.png")
+        plt.xticks(fontsize=label_fontsize)
+        plt.yticks(fontsize=label_fontsize)
+
+        save_path = os.path.join(self.PLOT_ROOT_DIR, f"{method}_correlation_plot.png")
         plt.savefig(save_path)
         plt.show()
 
-    def twinx_plot(
+    def twinx_scatterplot(
             self, 
             column_1: str, 
             column_2: str, 
-            average: bool = True) -> None:
+            average: bool = True,
+            title_fontsize: int = 20,
+            label_fontsize: int = 15,
+            tick_fontsize: int = 10,
+            s: int = 40
+            ) -> None:
 
         if column_1 not in self.europe.columns:
             raise ValueError(f"Column {column_1} not in the dataframe")
@@ -264,30 +284,33 @@ class Analysis:
         fig, ax1 = plt.subplots(figsize=(20, 10))
 
         if average:
-            average_data_1 = self.europe.groupby("TIME_PERIOD")[column_1].mean().reset_index()
-            europe_avg_1 = self.europe.drop_duplicates("TIME_PERIOD").merge(
-                average_data_1, on="TIME_PERIOD", suffixes=("", "_avg"))
+            # TODO: make the x-axis universal
+            average_change = self.europe.groupby("COUNTRY")["CHANGE_INDICATOR"].mean().reset_index()
+            average_data_1 = self.europe.groupby("COUNTRY")[column_1].mean().reset_index()
+            average_data_2 = self.europe.groupby("COUNTRY")[column_2].mean().reset_index()
 
-            sns.lineplot(data=europe_avg_1, x="TIME_PERIOD", y=column_1+"_avg", ax=ax1)
-            ax1.set_ylabel(self.column_name_to_title_description[column_1])
-            ax1.set_xlabel("Year")
+            average_change = average_change.merge(average_data_1, on="COUNTRY", suffixes=("", "_avg"))
+            average_change = average_change.merge(average_data_2, on="COUNTRY", suffixes=("", "_avg"))
+
+            sns.scatterplot(data=average_change, x="CHANGE_INDICATOR", y=column_1, ax=ax1, color="blue", s=s)
+            ax1.set_ylabel(column_1, fontsize=label_fontsize)
+            ax1.set_xlabel(self.column_name_to_title_description["CHANGE_INDICATOR"], fontsize=label_fontsize)
             ax1.grid(True)
 
             ax2 = ax1.twinx()
-            average_data_2 = self.europe.groupby("TIME_PERIOD")[column_2].mean().reset_index()
-            europe_avg_2 = self.europe.drop_duplicates("TIME_PERIOD").merge(
-                average_data_2, on="TIME_PERIOD", suffixes=("", "_avg"))
+            sns.scatterplot(data=average_change, x="CHANGE_INDICATOR", y=column_2, ax=ax2, color="red", s=s)
+            ax2.set_ylabel(column_2, fontsize=label_fontsize)
 
-            sns.lineplot(data=europe_avg_2, x="TIME_PERIOD", y=column_2+"_avg", ax=ax2, color="red")
-            ax2.set_ylabel(self.column_name_to_title_description[column_2], color="red")
-
-            plt.title(f"Average {self.column_name_to_title_description[column_1]} and {self.column_name_to_title_description[column_2]} over the years")
+            plt.title(f"Averaged {column_1} and {column_2}", fontsize=title_fontsize)
 
             # Creating unified legend
-            legend_handles = [Line2D([0], [0], color='blue', label=column_1),
-                            Line2D([0], [0], color='red', label=column_2)]
-            ax1.legend(handles=legend_handles)
-
+            legend_handles = [Line2D([0], [0], color="blue", label=column_1),
+                            Line2D([0], [0], color="red", label=column_2)]
+            ax1.legend(handles=legend_handles, fontsize=label_fontsize)
+            
+            ax1.tick_params(axis="both", which="major", labelsize=tick_fontsize)
+            ax2.tick_params(axis="both", which="major", labelsize=tick_fontsize)
+            
         else:
             self.europe.plot(x="TIME_PERIOD", y=column_1, legend=False)
             plt.title(self.column_name_to_title_description[column_1])
@@ -297,19 +320,78 @@ class Analysis:
             plt.title(self.column_name_to_title_description[column_2])
 
         
-        save_path = os.path.join(self.PLOT_ROOT_DIR, column_1 + "_" + column_2 + "_twinx_plot.png")
+        save_path = os.path.join(self.PLOT_ROOT_DIR, column_1 + "_" + column_2 + "_scatter_twinx_plot.png")
         plt.savefig(save_path)
 
         plt.show()
+    
+
+    def twinx_lineplot(
+                self, 
+                column_1: str, 
+                column_2: str, 
+                average: bool = True,
+                title_fontsize: int = 20,
+                label_fontsize: int = 15,
+                tick_fontsize: int = 10
+                ) -> None:
+
+            if column_1 not in self.europe.columns:
+                raise ValueError(f"Column {column_1} not in the dataframe")
+            if column_2 not in self.europe.columns:
+                raise ValueError(f"Column {column_2} not in the dataframe")
+            
+            fig, ax1 = plt.subplots(figsize=(20, 10))
+
+            if average:
+                average_data_1 = self.europe.groupby("TIME_PERIOD")[column_1].mean().reset_index()
+                europe_avg_1 = self.europe.drop_duplicates("TIME_PERIOD").merge(
+                    average_data_1, on="TIME_PERIOD", suffixes=("", "_avg"))
+
+                sns.lineplot(data=europe_avg_1, x="TIME_PERIOD", y=column_1, ax=ax1)
+                ax1.set_ylabel(column_1, fontsize=label_fontsize)
+                ax1.set_xlabel("Year", fontsize=label_fontsize)
+                ax1.grid(True)
+
+                ax2 = ax1.twinx()
+                average_data_2 = self.europe.groupby("TIME_PERIOD")[column_2].mean().reset_index()
+                europe_avg_2 = self.europe.drop_duplicates("TIME_PERIOD").merge(
+                    average_data_2, on="TIME_PERIOD", suffixes=("", "_avg"))
+
+                sns.lineplot(data=europe_avg_2, x="TIME_PERIOD", y=column_2, ax=ax2, color="red")
+                ax2.set_ylabel(column_2, fontsize=label_fontsize)
+
+                plt.title(f"Averaged {column_1} and {column_2} for all countries", fontsize=title_fontsize)
+
+                # Creating unified legend
+                legend_handles = [Line2D([0], [0], color="blue", label=column_1),
+                                Line2D([0], [0], color="red", label=column_2)]
+                ax1.legend(handles=legend_handles, fontsize=label_fontsize)
+
+                ax1.tick_params(axis="both", which="major", labelsize=tick_fontsize)
+                ax2.tick_params(axis="both", which="major", labelsize=tick_fontsize)
+
+            else:
+                self.europe.plot(x="TIME_PERIOD", y=column_1, legend=False)
+                plt.title(self.column_name_to_title_description[column_1])
+
+                ax2 = ax1.twinx()
+                self.europe.plot(x="TIME_PERIOD", y=column_2, legend=False, ax=ax2, color="red")
+                plt.title(self.column_name_to_title_description[column_2])
+
+            
+            save_path = os.path.join(self.PLOT_ROOT_DIR, column_1 + "_" + column_2 + "_line_twinx_plot.png")
+            plt.savefig(save_path)
+
+            plt.show()
 
 
 if __name__ == "__main__":
     data_path = os.path.join(ROOT_DIR, "final_data.csv")
     
     data = pd.read_csv(data_path)
-
     analysis = Analysis(data)
-    
+
     analysis.create_map_plot("CHANGE_INDICATOR", average=True)
 
     analysis.create_heatmap("CHANGE_INDICATOR", cmap="Reds")
@@ -335,5 +417,27 @@ if __name__ == "__main__":
     analysis.create_scatterplot("CHANGE_INDICATOR", "TOE_HAB", average=True)
     analysis.create_scatterplot("CHANGE_INDICATOR", "MTOE", average=True)
 
-    analysis.create_correlation_plot()
-    analysis.twinx_plot("MTOE", "TOE_HAB", average=True)
+    analysis.create_correlation_plot(
+        label_fontsize=20,
+        annot_fontsize=20,
+        method="spearman")
+
+    analysis.twinx_lineplot(
+        "MTOE", 
+        "TOE_HAB", 
+        average=True,
+        title_fontsize=30,
+        label_fontsize=30,
+        tick_fontsize=25
+        )
+
+    analysis.twinx_scatterplot(
+        "MTOE",
+        "TOE_HAB",
+        average=True,
+        title_fontsize=30,
+        label_fontsize=30,
+        tick_fontsize=25,
+        s=70
+        )
+
