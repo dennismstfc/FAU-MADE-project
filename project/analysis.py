@@ -263,6 +263,9 @@ class Analysis:
         plt.xticks(fontsize=label_fontsize)
         plt.yticks(fontsize=label_fontsize)
 
+        cbar = plt.gcf().axes[1]
+        cbar.tick_params(labelsize=label_fontsize)
+
         save_path = os.path.join(self.PLOT_ROOT_DIR, f"{method}_correlation_plot.png")
         plt.savefig(save_path)
         plt.show()
@@ -350,7 +353,7 @@ class Analysis:
                 europe_avg_1 = self.europe.drop_duplicates("TIME_PERIOD").merge(
                     average_data_1, on="TIME_PERIOD", suffixes=("", "_avg"))
 
-                sns.lineplot(data=europe_avg_1, x="TIME_PERIOD", y=column_1, ax=ax1)
+                sns.lineplot(data=europe_avg_1, x="TIME_PERIOD", y=column_1+"_avg", ax=ax1)
                 ax1.set_ylabel(column_1, fontsize=label_fontsize)
                 ax1.set_xlabel("Year", fontsize=label_fontsize)
                 ax1.grid(True)
@@ -360,7 +363,7 @@ class Analysis:
                 europe_avg_2 = self.europe.drop_duplicates("TIME_PERIOD").merge(
                     average_data_2, on="TIME_PERIOD", suffixes=("", "_avg"))
 
-                sns.lineplot(data=europe_avg_2, x="TIME_PERIOD", y=column_2, ax=ax2, color="red")
+                sns.lineplot(data=europe_avg_2, x="TIME_PERIOD", y=column_2+"_avg", ax=ax2, color="red")
                 ax2.set_ylabel(column_2, fontsize=label_fontsize)
 
                 plt.title(f"Averaged {column_1} and {column_2} for all countries", fontsize=title_fontsize)
@@ -423,7 +426,7 @@ if __name__ == "__main__":
         label_fontsize=20,
         annot_fontsize=20,
         method="spearman")
-
+    
     analysis.twinx_lineplot(
         "MTOE", 
         "TOE_HAB", 
@@ -442,4 +445,4 @@ if __name__ == "__main__":
         tick_fontsize=25,
         s=70
         )
-
+'''
