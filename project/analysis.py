@@ -39,7 +39,7 @@ class Analysis:
         self.__create_plot_folder()
 
         self.column_name_to_title_description = {
-            "CHANGE_INDICATOR": "Temperature change indicator (degrees Celsius)",
+            "CHANGE_INDICATOR": "Temperature Change Indicator (℃)",
             "TOE_HAB": "Tonnes of Oil Equivalents per capita",
             "MTOE": "Million Tonnes of Oil Equivalent per GDP",
         }
@@ -92,7 +92,9 @@ class Analysis:
     def create_map_plot(
             self, 
             column: str, 
-            average: bool = True
+            average: bool = True,
+            title_fontsize: int = 20,
+            colorbar_fontsize: int = 15
             ) -> None:
 
         if column not in self.europe.columns:
@@ -109,12 +111,12 @@ class Analysis:
             europe_avg.plot(column=column+"_avg", ax=ax, legend=True, cmap="Reds")
 
             if column == "CHANGE_INDICATOR":
-                plt.title("Average temperature increase", fontsize=20)
+                plt.title("Average temperature increase (℃)", fontsize=title_fontsize)
             else:
                 plt.title(f"Average {self.column_name_to_title_description[column]} (2000 - 2022)")
             
-            cbar = ax.get_figure().get_axes()[1]
-            cbar.tick_params(labelsize=15)
+            cbar = ax.get_figure().get_axes()[1] 
+            cbar.tick_params(labelsize=colorbar_fontsize)
 
         else:
             self.europe.boundary.plot(ax=ax, color="black")
@@ -159,7 +161,10 @@ class Analysis:
             average: bool = True,
             confidence_interval: bool = False,
             ylim: Tuple[int, int] = None,
-            xlim: Tuple[int, int] = None
+            xlim: Tuple[int, int] = None,
+            title_fontsize: int = 20,
+            label_fontsize: int = 15, 
+            annot_fontsize: int = 15
             ) -> None:
 
         if column not in self.europe.columns:
@@ -171,7 +176,7 @@ class Analysis:
                 average_data, on="TIME_PERIOD", suffixes=("", "_avg"))
 
             sns.lineplot(data=europe_avg, x="TIME_PERIOD", y=column+"_avg")
-            plt.title("Average " + self.column_name_to_title_description[column])
+            plt.title("Average " + self.column_name_to_title_description[column], fontsize=title_fontsize)
         
             if confidence_interval:
                 ci_per_year = self.europe.groupby("TIME_PERIOD")[column].agg(["std", "size"]).reset_index()
@@ -196,13 +201,16 @@ class Analysis:
             plt.xlim(xlim)
 
         if column == "CHANGE_INDICATOR":
-            plt.ylabel("Temperature change in degrees Celsius")
+            plt.ylabel("Temperature change (℃)", fontsize=annot_fontsize)
         else:
-            plt.ylabel(column)
+            plt.ylabel(column, fontsize=annot_fontsize)
 
-        plt.xlabel("Year")
+        plt.xlabel("Year", fontsize=annot_fontsize)
         plt.grid(True)
-        plt.legend()
+        plt.legend(fontsize=label_fontsize)
+
+        plt.yticks(fontsize=annot_fontsize)
+        plt.xticks(fontsize=annot_fontsize)
 
         save_path = os.path.join(self.PLOT_ROOT_DIR, column + "_lineplot.png")
         plt.savefig(save_path)
@@ -397,13 +405,25 @@ if __name__ == "__main__":
     data = pd.read_csv(data_path)
     analysis = Analysis(data)
 
-    analysis.create_map_plot("CHANGE_INDICATOR", average=True)
-
+    analysis.create_map_plot(
+        "CHANGE_INDICATOR", 
+        average=True,
+        title_fontsize=25,
+        colorbar_fontsize=20
+        )
+    
     analysis.create_heatmap("CHANGE_INDICATOR", cmap="Reds")
     analysis.create_heatmap("TOE_HAB", cmap="coolwarm")
     analysis.create_heatmap("MTOE", cmap="coolwarm")
 
-    analysis.create_lineplot("CHANGE_INDICATOR", average=True, confidence_interval=True)
+    analysis.create_lineplot(
+        "CHANGE_INDICATOR", 
+        average=True, 
+        confidence_interval=True,
+        title_fontsize=18,
+        label_fontsize=15,
+        annot_fontsize=14 
+        )
     
     analysis.create_lineplot(
         "TOE_HAB", 
@@ -425,24 +445,27 @@ if __name__ == "__main__":
     analysis.create_correlation_plot(
         label_fontsize=20,
         annot_fontsize=20,
-        method="spearman")
+        method="spearman"
+        )
     
+    title_size = 40
+    tick_size = 35
+
     analysis.twinx_lineplot(
         "MTOE", 
         "TOE_HAB", 
         average=True,
-        title_fontsize=30,
-        label_fontsize=30,
-        tick_fontsize=25
+        title_fontsize=title_size,
+        label_fontsize=title_size,
+        tick_fontsize=tick_size
         )
 
     analysis.twinx_scatterplot(
         "MTOE",
         "TOE_HAB",
         average=True,
-        title_fontsize=30,
-        label_fontsize=30,
-        tick_fontsize=25,
-        s=70
+        title_fontsize=title_size,
+        label_fontsize=title_size,
+        tick_fontsize=tick_size,
+        s=120
         )
-'''
