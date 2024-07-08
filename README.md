@@ -1,51 +1,94 @@
-# Exercise Badges
+# Correlation Between Temperature Increase and Energy Consumption In European Countries
 
-![](https://byob.yarr.is/jvalue/made-template/score_ex1) ![](https://byob.yarr.is/jvalue/made-template/score_ex2) ![](https://byob.yarr.is/jvalue/made-template/score_ex3) ![](https://byob.yarr.is/jvalue/made-template/score_ex4) ![](https://byob.yarr.is/jvalue/made-template/score_ex5)
+## Table of Contents
+1. [Introduction and Motivation](#introduction-and-motivation)
+2. [Project Description](#project-description)
+3. [Datasets](#datasets)
+4. [Project Structure](#project-structure)
+5. [Instructions](#instructions)
+6. [Data Pipeline](#data-pipeline)
+7. [Analysis](#analysis)
+8. [Contact Information](#contact-information)
+9. [License](#license)
 
-# Methods of Advanced Data Engineering Template Project
+## Introduction and Motivation <a name="introduction-and-motivation"></a>
+Climate change is a pressing global issue with significant implications for environmental, economic, and social systems. In Europe, rising temperatures have raised concerns about their potential impact on energy consumption patterns. This project aims to investigate whether there has been a noticeable increase in temperatures in European countries since the 2000s and how energy consumption has changed over this period. Understanding these trends is essential to address the main question: **Does a potential temperature increase correlate with energy consumption in Europe?**
 
-This template project provides some structure for your open data project in the MADE module at FAU.
-This repository contains (a) a data science project that is developed by the student over the course of the semester, and (b) the exercises that are submitted over the course of the semester.
-Before you begin, make sure you have [Python](https://www.python.org/) and [Jayvee](https://github.com/jvalue/jayvee) installed. We will work with [Jupyter notebooks](https://jupyter.org/). The easiest way to do so is to set up [VSCode](https://code.visualstudio.com/) with the [Jupyter extension](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter).
+## Project Description <a name="project-description"></a>
+This project investigates the correlation between temperature increase and energy consumption in European countries. It follows a pipeline that includes data extraction, cleaning, transformation, and integration. A detailed description of the data origin preprocessing and preprocessing can be found in `project/data-report.pdf`. The final data is saved into `data/final_data.csv`. An analysis is then performed on the final data to answer the research question in `project/analysis-report.pdf`. The results of the analysis are saved into `plots/`.
 
-To get started, please follow these steps:
-1. Create your own fork of this repository. Feel free to rename the repository right after creation, before you let the teaching instructors know your repository URL. **Do not rename the repository during the semester**.
-2. Setup the exercise feedback by changing the exercise badge sources in the `README.md` file following the patter `![](https://byob.yarr.is/<github-user-name>/<github-repo>/score_ex<exercise-number>)`. 
-For example, if your user is _myuser_ and your repo is _myrepo_, then update the badge for _exercise 1_ to `![](https://byob.yarr.is/myrepo/myuser/score_ex1)`. Proceed with the remaining badges accordingly.
+## Datasets <a name="datasets"></a>
+The project combines two datasets to analyze the trends and patterns:
+1. **Climate Change Indicators**: Measures temperature change relative to a baseline climatology corresponding
+to the period from 1951 to 1980. It is a CSV file and is licensed under CC0. [Source](https://www.kaggle.com/datasets/tarunrm09/climate-change-indicators)
 
+2. **Primary Energy Consumption EU**: Provides data about the primary energy consumption in the EU.  The dataset is distributed by Eurostat, the statistical office of the European Union. The data format is CSV and it is licensed under the Open Data License. [Source](https://ec.europa.eu/eurostat/databrowser/view/sdg_07_10/default/table)
 
-## Project Work
-Your data engineering project will run alongside lectures during the semester. We will ask you to regularly submit project work as milestones so you can reasonably pace your work. All project work submissions **must** be placed in the `project` folder.
+For more detailed information, see `project/data-report.pdf`.
 
-### Exporting a Jupyter Notebook
-Jupyter Notebooks can be exported using `nbconvert` (`pip install nbconvert`). For example, to export the example notebook to html: `jupyter nbconvert --to html examples/final-report-example.ipynb --embed-images --output final-report.html`
+## Project Structure <a name="project-structure"></a>
 
-
-## Exercises
-During the semester you will need to complete exercises using [Jayvee](https://github.com/jvalue/jayvee). You **must** place your submission in the `exercises` folder in your repository and name them according to their number from one to five: `exercise<number from 1-5>.jv`.
-
-In regular intervalls, exercises will be given as homework to complete during the semester. Details and deadlines will be discussed in the lecture, also see the [course schedule](https://made.uni1.de/). At the end of the semester, you will therefore have the following files in your repository:
-
-1. `./exercises/exercise1.jv`
-2. `./exercises/exercise2.jv`
-3. `./exercises/exercise3.jv`
-4. `./exercises/exercise4.jv`
-5. `./exercises/exercise5.jv`
-
-### Exercise Feedback
-We provide automated exercise feedback using a GitHub action (that is defined in `.github/workflows/exercise-feedback.yml`). 
-
-To view your exercise feedback, navigate to Actions -> Exercise Feedback in your repository.
-
-The exercise feedback is executed whenever you make a change in files in the `exercise` folder and push your local changes to the repository on GitHub. To see the feedback, open the latest GitHub Action run, open the `exercise-feedback` job and `Exercise Feedback` step. You should see command line output that contains output like this:
-
-```sh
-Found exercises/exercise1.jv, executing model...
-Found output file airports.sqlite, grading...
-Grading Exercise 1
-	Overall points 17 of 17
-	---
-	By category:
-		Shape: 4 of 4
-		Types: 13 of 13
 ```
+├───.github/
+│   └───workflows/
+├───data/
+├───exercises/
+├───plots/
+├───project/
+│	├───analysis-report.pdf
+│	├───analysis.py
+│	├───data-report.pdf
+│	├───downloader.py
+│	├───pipeline.py
+│	├───pipeline.sh
+│	├───preprocessing.py
+│	├───project_plan.md
+│	├───requirements.txt
+│	├───tests.sh
+│   	└───unit_tests.sh
+└───sample_data/
+	├───eurostat_sample.csv
+   	└───kaggle_sample.csv
+```
+
+Important files:
+- `project/pipeline.sh` or `project/pipeline.py`: Executes the pipeline and saves the data into `data/final_data.csv`. Make sure that the dependencies contained in `project/requirements.txt` are installed and that a Kaggle API key is installed on the system.
+- `projects/analysis.py`: Analyses the data and saves the according plots into `plots/`.
+- `project/data-report.pdf`: Provides a detailed overview of the original data and what changes are made to obtain the final data.
+- `project/analysis-report.pdf`: Analysis of the research question.
+
+
+## Instructions <a name="instructions"></a>
+1. Clone the repository to your local machine with `git clone https://github.com/dennismstfc/FAU-MADE-project`.
+2. Install the dependencies from `project/requirements.txt` using pip: `pip install -r project/requirements.txt`.
+3. Make sure you have a Kaggle API key installed on your system. See the [documentation](https://www.kaggle.com/docs/api) for more.
+4. Run the pipeline script: `python project/pipeline.py` or `sh project/pipeline.sh`.
+5. Run the analysis script: `python projects/analysis.py`.
+
+## Data Pipeline <a name="data-pipeline"></a>
+![pipeline](project/data_pipeline.png)
+
+
+## Analysis <a name="analysis"></a>
+The analysis is divided into three main parts:
+
+1. **Surface Temperature Trends** ![Temperature increase](plots/CHANGE_INDICATOR_lineplot.png)
+    - This plot illustrates the significant increase in surface temperatures across European countries since the 2000s. The rising trend line indicates a consistent warming pattern.
+
+2. **Energy Consumption Patterns** ![Energy consumption](plots/MTOE_TOE_HAB_line_twinx_plot.png)
+    - Contrary to temperature trends, energy consumption data reveals a rise until 2007, followed by a subsequent decline. This pattern suggests that energy usage does not directly correspond with the observed temperature increases.
+
+3. **Correlation Analysis** ![Correlation](plots/spearman_correlation_plot.png)
+    - The correlation plot further reinforces our findings, indicating no significant relationship between the increase in temperatures and energy consumption in Europe.
+
+For a more comprehensive understanding of these trends and their implications, please refer to the detailed report available at `project/analysis-report.pdf`.
+
+##
+
+---
+
+## Contact Information <a name="contact-information"></a>
+For any additional questions or comments, please contact me at dennis.mustafic@fau.de
+
+## License <a name="license"></a>
+This project is licensed under the terms of the CC-BY-4.0 license.
