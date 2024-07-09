@@ -74,14 +74,22 @@ Important files:
 ## Analysis <a name="analysis"></a>
 The analysis is divided into three main parts:
 
-1. **Surface Temperature Trends** ![Temperature increase](plots/CHANGE_INDICATOR_lineplot.png)
+1. **Surface Temperature Trends** 
+
+<img src="plots/CHANGE_INDICATOR_lineplot.png" alt="drawing" width="300"/>
+
+
+![Temperature increase](plots/CHANGE_INDICATOR_lineplot.png)
+
 This plot illustrates the significant increase in surface temperatures across European countries since the 2000s. The rising trend line indicates a consistent warming pattern.
 
 2. **Energy Consumption Patterns** ![Energy consumption](plots/MTOE_TOE_HAB_line_twinx_plot.png)
 Contrary to temperature trends, energy consumption data reveals a rise until 2007, followed by a subsequent decline. This pattern suggests that energy usage does not directly correspond with the observed temperature increases.
 
-3. **Correlation Analysis** ![Correlation](plots/spearman_correlation_plot.png)
-The correlation plot further reinforces our findings, indicating no significant relationship between the increase in temperatures and energy consumption in Europe.
+3. **Correlation Analysis** 
+<img src="plots/spearman_correlation_plot.png" alt="drawing" width="300"/>
+
+The correlation plot further reinforces the findings, indicating no significant relationship between the increase in temperatures and energy consumption in Europe.
 
 For a more comprehensive understanding of these trends and their implications, please refer to the detailed report available at `project/analysis-report.pdf`.
 
