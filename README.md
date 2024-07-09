@@ -17,6 +17,8 @@ Climate change is a pressing global issue with significant implications for envi
 ## Project Description <a name="project-description"></a>
 This project investigates the correlation between temperature increase and energy consumption in European countries. It follows a pipeline that includes data extraction, cleaning, transformation, and integration. A detailed description of the data origin preprocessing and preprocessing can be found in `project/data-report.pdf`. The final data is saved into `data/final_data.csv`. An analysis is then performed on the final data to answer the research question in `project/analysis-report.pdf`. The results of the analysis are saved into `plots/`.
 
+In this project, unit tests have been implemented to verify the correctness of the data pipeline. These tests ensure that the pipeline produces the expected output. Additionally, GitHub Actions have been set up to automatically trigger these unit tests whenever changes are pushed to the repository.
+
 ## Datasets <a name="datasets"></a>
 The project combines two datasets to analyze the trends and patterns:
 1. **Climate Change Indicators**: Measures temperature change relative to a baseline climatology corresponding
@@ -73,19 +75,17 @@ Important files:
 The analysis is divided into three main parts:
 
 1. **Surface Temperature Trends** ![Temperature increase](plots/CHANGE_INDICATOR_lineplot.png)
-    - This plot illustrates the significant increase in surface temperatures across European countries since the 2000s. The rising trend line indicates a consistent warming pattern.
+This plot illustrates the significant increase in surface temperatures across European countries since the 2000s. The rising trend line indicates a consistent warming pattern.
 
 2. **Energy Consumption Patterns** ![Energy consumption](plots/MTOE_TOE_HAB_line_twinx_plot.png)
-    - Contrary to temperature trends, energy consumption data reveals a rise until 2007, followed by a subsequent decline. This pattern suggests that energy usage does not directly correspond with the observed temperature increases.
+Contrary to temperature trends, energy consumption data reveals a rise until 2007, followed by a subsequent decline. This pattern suggests that energy usage does not directly correspond with the observed temperature increases.
 
 3. **Correlation Analysis** ![Correlation](plots/spearman_correlation_plot.png)
-    - The correlation plot further reinforces our findings, indicating no significant relationship between the increase in temperatures and energy consumption in Europe.
+The correlation plot further reinforces our findings, indicating no significant relationship between the increase in temperatures and energy consumption in Europe.
 
 For a more comprehensive understanding of these trends and their implications, please refer to the detailed report available at `project/analysis-report.pdf`.
 
-##
 
----
 
 ## Contact Information <a name="contact-information"></a>
 For any additional questions or comments, please contact me at dennis.mustafic@fau.de
